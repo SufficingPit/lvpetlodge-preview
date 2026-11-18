@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F7F7F5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111418" media="(prefers-color-scheme: dark)">
+<title>Request a Stay</title>
+<meta name="description" content="Check open spots and request a boarding stay at Little Village Pet Lodge.">
+<link rel="icon" type="image/png" href="img/icon-192.png">
+<style>
+:root{--bg:#F7F7F5;--card:#fff;--ink:#1F2937;--mut:#5B6472;--line:#DDDDD6;--row:#EFEFEA;--pri:#0F766E;--pri-soft:#E3F2EF;--onp:#fff;--bad:#B91C1C;--warnbg:#FEF3C7;--warnfg:#78350F;--field:#C9CBC3;--off:#E4E4DE;--shadow:0 1px 2px rgba(0,0,0,.06)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111418;--card:#1B2027;--ink:#E5E7EB;--mut:#A3ACB9;--line:#2E353F;--row:#171B21;--pri:#3BAE9F;--pri-soft:#173A36;--onp:#06201C;--bad:#F87171;--warnbg:#3A2E0B;--warnfg:#FCD34D;--field:#3A424D;--off:#20262E;--shadow:none;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#111418;--card:#1B2027;--ink:#E5E7EB;--mut:#A3ACB9;--line:#2E353F;--row:#171B21;--pri:#3BAE9F;--pri-soft:#173A36;--onp:#06201C;--bad:#F87171;--warnbg:#3A2E0B;--warnfg:#FCD34D;--field:#3A424D;--off:#20262E;--shadow:none;color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg)}
+body{margin:0;color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+#app{max-width:620px;margin:0 auto;padding:22px 16px 48px}
+.tb{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.tb-home{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:800;line-height:1.1}
+.tb-home img{width:36px;height:36px;border-radius:8px;background:#fff}
+.tb-home small{display:block;font-weight:600;color:var(--mut);font-size:12px}
+.tb-call{min-height:40px;display:inline-flex;align-items:center;padding:0 16px;border-radius:999px;border:1px solid var(--field);color:var(--ink);text-decoration:none;font-weight:600;background:var(--card)}
+@media(min-width:660px){.tb{padding-left:calc(50% - 294px);padding-right:calc(50% - 294px)}}
+h1{font-size:26px;margin:0 0 2px}
+h2{font-size:17px;margin:28px 0 10px}
+p{margin:0 0 10px}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+button:disabled{cursor:default}
+.biz{color:var(--pri);font-weight:700;font-size:14px;letter-spacing:.02em}
+.mut{color:var(--mut);font-size:14px}
+.card{background:var(--card);border-radius:14px;padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.b{min-height:50px;width:100%;padding:0 20px;border:0;border-radius:12px;background:var(--pri);color:var(--onp);font-weight:700;font-size:16px}
+.b:disabled{opacity:.45}
+.b2{min-height:46px;padding:0 16px;border:1px solid var(--field);border-radius:12px;background:var(--card);font-weight:600}
+.lk{border:0;background:none;color:var(--pri);font-weight:600;padding:8px 4px;min-height:40px}
+.lk.bad{color:var(--bad)}
+.err{color:var(--bad);font-weight:600;font-size:15px;line-height:1.4;margin:12px 0;padding:11px 13px;border:1.5px solid var(--bad);border-radius:12px;background:color-mix(in srgb, var(--bad) 8%, var(--card))}
+.warn{background:var(--warnbg);color:var(--warnfg);border-radius:12px;padding:12px 14px;margin:10px 0;font-size:15px}
+.recs .rpet{border-top:1px solid var(--line);margin-top:12px;padding-top:10px}
+.recs .rpn{font-weight:600}
+.recs .rec{display:flex;align-items:center;gap:10px;padding:6px 0}
+.recs .rthumb{width:44px;height:44px;flex:none;border-radius:8px;border:1px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:12px;font-weight:700;color:#5B6472}
+.recs .rthumb img{width:100%;height:100%;object-fit:cover}
+.recs button.rthumb{padding:0;cursor:zoom-in}
+.peek{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.8);display:flex;align-items:center;justify-content:center;padding:16px;cursor:zoom-out}
+.peek img{max-width:100%;max-height:100%;border-radius:8px;background:#fff}
+.recs .rname{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.recs label.b2{display:flex;align-items:center;justify-content:center;margin-top:6px;cursor:pointer}
+.recs .b{margin-top:12px}
+.ok{background:var(--pri-soft);color:var(--ink);border-radius:12px;padding:12px 14px;margin:10px 0}
+.lbl{display:block;font-size:13px;font-weight:600;color:var(--mut);margin:0 0 5px}
+.f{display:block;margin-bottom:12px}
+input,textarea{width:100%;min-height:48px;border:1px solid var(--field);border-radius:10px;padding:0 12px;background:var(--card);font-size:16px}
+textarea{padding:10px 12px;min-height:84px;resize:vertical}
+input:focus,textarea:focus{outline:2px solid var(--pri);outline-offset:-1px;border-color:var(--pri)}
+.two{display:flex;gap:10px}.two>*{flex:1;min-width:0}
+/* counters */
+.cnt{display:flex;align-items:center;gap:12px}
+.cnt button{width:44px;height:44px;border-radius:22px;border:1px solid var(--field);background:var(--card);font-size:22px;line-height:1}
+.cnt button:disabled{opacity:.35}
+.cnt b{min-width:24px;text-align:center;font-size:18px}
+.seg{display:flex;border:1px solid var(--field);border-radius:12px;overflow:hidden;background:var(--card)}
+.seg button{flex:1;min-height:44px;border:0;background:none;font-weight:600}
+.seg button+button{border-left:1px solid var(--field)}
+.seg .on{background:var(--pri);color:var(--onp)}
+/* month calendar */
+.mh{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.mh b{font-size:17px}
+.mh button{width:44px;height:44px;border:0;background:none;font-size:22px;color:var(--ink)}
+.mh button:disabled{opacity:.25}
+.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.dow{text-align:center;font-size:12px;font-weight:600;color:var(--mut);padding:4px 0}
+.day{position:relative;min-width:0;padding:3px 0;min-height:50px;border:0;border-radius:10px;background:var(--card);font-weight:600;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;box-shadow:var(--shadow)}
+.day small{font-size:9.5px;font-weight:600;color:var(--mut);line-height:1;max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:clip}
+.day.no{background:var(--off);color:var(--mut);box-shadow:none}
+.day.closed{background:repeating-linear-gradient(135deg,var(--off),var(--off) 5px,transparent 5px,transparent 9px);color:var(--mut);box-shadow:none}
+.day.in{background:var(--pri-soft);border-radius:0}
+.day.end,.day.start{background:var(--pri);color:var(--onp)}
+.day.end small,.day.start small{color:var(--onp)}
+.day.blank{background:none;box-shadow:none}
+.key{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--mut);margin:10px 0 0}
+.sw{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:5px}
+.big{font-size:20px;font-weight:700}
+/* time chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:42px;padding:0 14px;border-radius:999px;border:1px solid var(--field);background:var(--card);font-weight:600;font-size:15px}
+.chip.on{background:var(--pri);border-color:var(--pri);color:var(--onp)}
+.petcard{border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px}
+.chip.kl{width:44px;padding:0;justify-content:center;font-size:16px}
+.chip:disabled{opacity:.35}
+.sharing{font-size:15px;margin-top:2px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.link{word-break:break-all;font-size:14px}
+.tbtn{width:100%;min-height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;border:1px solid var(--field);border-radius:12px;background:var(--card);font-size:17px;font-weight:600;text-align:left}
+.tbtn.empty span:first-child{color:var(--mut);font-weight:500}
+.tnote{margin:6px 0 0;font-size:14px;color:var(--mut)}
+.tnote b{color:var(--ink)}
+.tov{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center}
+.tsh{background:var(--bg);width:100%;max-width:520px;max-height:80vh;border-radius:18px 18px 0 0;display:flex;flex-direction:column;padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(min-width:660px){.tov{align-items:center}.tsh{border-radius:18px}}
+.wheels{position:relative;display:flex;justify-content:center;align-items:center;gap:6px;padding:8px 16px}
+.whl{position:absolute;left:16px;right:16px;top:calc(8px + 80px);height:40px;border-radius:10px;background:var(--card);box-shadow:var(--shadow);pointer-events:none}
+.wheel{position:relative;height:200px;width:72px;overflow-y:scroll;scroll-snap-type:y mandatory;scrollbar-width:none;-webkit-mask-image:linear-gradient(transparent,#000 30%,#000 70%,transparent);mask-image:linear-gradient(transparent,#000 30%,#000 70%,transparent)}
+.wheel::-webkit-scrollbar{display:none}
+.wheel .sp{height:80px}
+.wheel .wi{height:40px;line-height:40px;text-align:center;font-size:22px;scroll-snap-align:center;color:var(--mut);cursor:pointer}
+.wheel .wi.sel{color:var(--ink);font-weight:700}
+.colon{position:relative;font-size:22px;font-weight:700}
+.tstat{margin:6px 16px 10px;padding:10px 12px;border-radius:12px;font-size:15px}
+.tstat.ok{background:var(--pri-soft)}
+.tstat.fee{background:var(--warnbg);color:var(--warnfg)}
+.est .el{font-size:15px;padding:4px 0;align-items:flex-start}
+.est .el span:last-child{white-space:nowrap;font-variant-numeric:tabular-nums}
+.est .tot{border-top:1px solid var(--line);margin-top:4px;padding-top:8px;font-size:17px}
+.mine{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.mine:first-of-type{border-top:0}
+.mine small{display:block;color:var(--mut);font-size:13px}
+.st{font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--off);white-space:nowrap}
+.st-approved{background:var(--pri-soft);color:var(--pri)}
+.st-pending{background:var(--warnbg);color:var(--warnfg)}
+#tsbox{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:20;background:var(--card);border-radius:14px;padding:14px;box-shadow:0 6px 30px rgba(0,0,0,.25);max-width:calc(100% - 24px)}
+.fees{font-size:14px;color:var(--mut);margin:-4px 0 14px;display:grid;gap:4px}
+.fees b{color:var(--ink);font-weight:600}
+</style>
+</head>
+<body>
+<header class="tb"><a class="tb-home" href="./"><img src="img/logo.png" alt="" width="36" height="36"><span>Little Village<small>Pet Lodge</small></span></a><a class="tb-call" href="tel:+13082332652">Call</a></header>
+<div id="app"><p class="mut">Loading…</p></div>
+<div id="tsbox" hidden><p class="mut" style="margin:0 0 8px">One quick check that you’re not a robot:</p><div id="ts"></div></div>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+<script>
+'use strict';
+/* Public page: check open spots and request a stay, or (with ?r=...) see and cancel a request.
+   It only calls the database's public functions (booking_info, booking_days, booking_check,
+   request_spot, request_status, request_cancel). It never sees the schedule or anyone's details. */
+const SUPA = {url:'https://hmkhdmtededcxsjnlqxz.supabase.co', key:'sb_publishable_kNXTM6u_Jl95mmgBpJuzhw_bww2lCiB'};
+const BIZ = 'Little Village Pet Lodge', PHONE = '+13082332652', PHONE_TEXT = '(308) 233-2652';
+// Sending goes through the request-spot server function, which runs the spam check first.
+// Its gate wants the project's public (legacy) anon key; like the publishable key, it's safe in a page.
+const SEND_URL = SUPA.url+'/functions/v1/request-spot', SEND_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhta2hkbXRlZGVkY3hzam5scXh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM5NzAzNTIsImV4cCI6MjEwOTU0NjM1Mn0.MAwoo-9B3v6M5GNUkEXQpnnmB-DMY3fgSD6r9RDod10';
+// Cloudflare Turnstile site key (public; the secret one lives only in Supabase as TURNSTILE_SECRET)
+const TURNSTILE_SITE = '0x4AAAAAAF25ETdEUOtMMctP';
+let tsId = null, tsWait = null;
+function humanCheck(){
+  return new Promise((ok, no) => {
+    if(!window.turnstile) return no(new Error('The human check didn’t load. Check your connection and refresh.'));
+    const box = document.getElementById('tsbox');
+    tsWait = {ok, no};
+    if(tsId===null) tsId = turnstile.render('#ts', {sitekey:TURNSTILE_SITE, execution:'execute', appearance:'interaction-only',
+      'before-interactive-callback':()=>{ box.hidden = false; },
+      callback:t=>{ box.hidden = true; tsWait && tsWait.ok(t); tsWait = null; },
+      'error-callback':()=>{ box.hidden = true; tsWait && tsWait.no(new Error('The human check didn’t work. Please try again.')); tsWait = null; }});
+    else turnstile.reset(tsId);
+    turnstile.execute(tsId);
+  });
+}
+async function rpc(fn, args = {}){
+  const r = await fetch(SUPA.url+'/rest/v1/rpc/'+fn, {method:'POST', headers:{apikey:SUPA.key, 'Content-Type':'application/json'}, body:JSON.stringify(args)});
+  if(!r.ok) throw new Error('Server said '+r.status);
+  return r.json();
+}
+
+/* ---------- small helpers ---------- */
+function h(tag, attrs, ...kids){
+  const e = document.createElement(tag);
+  for(const k in attrs||{}){ const v = attrs[k]; if(v==null || v===false) continue;
+    if(k.startsWith('on')) e[k] = v; else if(k==='value') e.value = v; else if(k==='html') e.innerHTML = v; else e.setAttribute(k, v===true ? '' : v); }
+  for(const c of kids.flat(Infinity)){ if(c==null || c===false || c==='') continue; e.append(c.nodeType ? c : document.createTextNode(String(c))); }
+  return e;
+}
+const pad2 = n => String(n).padStart(2,'0');
+const ymdOf = d => d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate());
+const parseD = s => { const [y,m,d] = s.split('-').map(Number); return new Date(y, m-1, d); };
+const addDays = (s, n) => { const d = parseD(s); d.setDate(d.getDate()+n); return ymdOf(d); };
+const nightsBetween = (a, b) => Math.round((parseD(b) - parseD(a)) / 864e5);
+const md = s => parseD(s).toLocaleDateString('en-US',{month:'short', day:'numeric'});
+const wmd = s => parseD(s).toLocaleDateString('en-US',{weekday:'short', month:'short', day:'numeric'});
+const t12 = t => { const [a,b] = t.split(':'); return ((+a+11)%12+1)+':'+b+(+a<12 ? ' AM' : ' PM'); };
+const plural = (n, w) => n+' '+w+(n===1 ? '' : 's');
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const fmtPhone = v => { const d = v.replace(/\D/g,'').replace(/^1(?=\d{10}$)/,''); return d.length===10 ? d.slice(0,3)+'-'+d.slice(3,6)+'-'+d.slice(6) : v; };
+const toMin = t => +t.slice(0,2)*60 + +t.slice(3);
+const fromMin = m => pad2(Math.floor(m/60))+':'+pad2(m%60);
+
+/* ---------- remembered on this device (no account) ----------
+   MEM.reqs: requests sent from here [{token, start, end}]; MEM.me: name, phone, email, pets
+   to fill in the next request. Lives only in this browser. */
+const MEMKEY = 'lvpl-mine';
+let MEM = {reqs:[], me:null};
+try { MEM = {...MEM, ...JSON.parse(localStorage.getItem(MEMKEY))}; } catch(e) {}
+const saveMem = () => { try { localStorage.setItem(MEMKEY, JSON.stringify(MEM)); } catch(e) {} };
+let MINE = [];   // statuses of remembered requests, shown above the form
+
+/* ---------- state ---------- */
+const F = {ownFood:false, start:null, end:null, arr:'', pick:'',
+  name:'', phone:'', email:'', notes:'', items:'', pets:[{species:'dog', name:'', breed:'', g:'A'}], month:null, key:(crypto.randomUUID ? crypto.randomUUID() : null)};
+let INFO = null, DAYS = {}, CHECK = null, ERR = '', SENDING = false, DONE = null, STATUS = null;
+// pets with the same kennel letter share; spots needed = kennel letters in use, per kind
+const LETTERS = 'ABCDEF';
+// "other" pets (rabbits, ferrets, birds...) bring a cage, or get a cat condo of their own
+const lettered = p => p.species==='dog' || p.species==='cat';
+const need = () => { const d = new Set(), c = new Set();
+  F.pets.forEach((p, i) => { if(p.species==='dog') d.add(p.g); else if(p.species==='cat') c.add(p.g); else if(!p.cage) c.add('other'+i); });
+  return {d:d.size, c:c.size}; };
+const firstOK = () => addDays(INFO.today, INFO.lead ?? 1);
+const lastOK = () => addDays(INFO.today, INFO.ahead ?? 180);
+// a night is open when there's room for this group and it isn't closed
+const nightOpen = d => { const x = DAYS[d]; if(!x) return null; const n = need(); return !x.closed && x.dogs >= n.d && x.cats >= n.c; };
+
+async function loadMonth(y, m){
+  const from = ymdOf(new Date(y, m, 1)), to = ymdOf(new Date(y, m+1, 1));
+  try { (await rpc('booking_days', {p_from:from, p_to:to})).forEach(r => DAYS[r.day] = r); }
+  catch(e){ ERR = navigator.onLine===false ? 'We couldn’t load the open dates because the connection dropped. Please refresh once you’re back online.' : 'Sorry, we couldn’t load the open dates just now. Please refresh the page in a minute, or call or text us at '+CALL_TEXT+'.'; }
+  draw();
+}
+async function check(){
+  CHECK = null; draw();
+  if(!F.start || !F.end) return;
+  const s = F.start, e = F.end;
+  try { const c = await rpc('booking_check', {p_start:s, p_end:e}); if(F.start===s && F.end===e){ CHECK = c; draw(); } }
+  catch(err){ CHECK = {ok:false, reason:'Sorry, we couldn’t check those dates just now. Please try again in a minute.'}; draw(); }
+}
+
+/* ---------- pieces ---------- */
+function petsChanged(){
+  if(F.start && F.end && !rangeOpen(F.start, F.end)){ F.end = null; }
+  check();
+}
+// a new or changed pet joins the kennel of others of its kind, or gets a free letter
+function freeLetter(sp, self){
+  const same = F.pets.find(x => x!==self && x.species===sp);
+  if(same) return same.g;
+  return [...LETTERS].find(l => !F.pets.some(x => x!==self && lettered(x) && x.g===l));
+}
+const kindName = p => p.species==='cat' ? 'Cat' : p.species==='other' ? (p.kind.trim() || 'Pet') : 'Dog';
+const petLabel = (p, i) => p.name.trim() || kindName(p)+' '+(i+1);
+const listOf = a => a.length < 3 ? a.join(' and ') : a.slice(0,-1).join(', ')+' and '+a[a.length-1];
+function shareText(){
+  if(F.pets.length < 2) return '';
+  const by = {}, out = [];
+  F.pets.forEach((p, i) => { if(lettered(p)) (by[p.g] ||= []).push(petLabel(p, i)); });
+  const groups = Object.values(by);
+  if(groups.length > 1 && groups.every(a => a.length===1)) out.push(groups.length===F.pets.length ? 'Each has their own kennel.' : listOf(groups.map(a => a[0]))+' each have their own kennel.');
+  else groups.forEach(a => out.push(a.length > 1 ? listOf(a)+' share a kennel.' : a[0]+' has their own kennel.'));
+  F.pets.forEach((p, i) => { if(!lettered(p)) out.push(petLabel(p, i)+(p.cage ? ' comes in their own cage.' : ' gets a cat condo of their own.')); });
+  return out.join(' ');
+}
+function petCard(p, i){
+  const many = F.pets.filter(lettered).length > 1;
+  const setKind = v => { if(p.species===v) return; p.species = v;
+    if(v==='other'){ p.cage ??= true; p.kind ??= ''; }
+    else if(F.pets.some(x => x!==p && lettered(x) && x.g===p.g && x.species!==v) || !p.g) p.g = freeLetter(v, p);
+    petsChanged(); };
+  return h('div',{class:'petcard'},
+    h('div',{class:'row', style:'margin-bottom:8px'}, h('b',{}, 'Pet '+(i+1)),
+      F.pets.length > 1 && h('button',{class:'lk bad', style:'min-height:32px', onclick:()=>{ F.pets.splice(i, 1); petsChanged(); }}, 'Remove')),
+    h('div',{class:'seg', style:'margin-bottom:10px'}, [['dog','Dog'],['cat','Cat'],['other','Other']].map(([v,l]) => h('button',{class:p.species===v ? 'on' : '', onclick:()=>setKind(v)}, l))),
+    p.species==='other' && h('label',{class:'f'}, h('span',{class:'lbl'},'What kind of pet?'),
+      h('input',{value:p.kind || '', maxlength:40, autocomplete:'off', placeholder:'e.g. Rabbit, ferret, bird', oninput:e=>{ p.kind = e.target.value; }, onchange:()=>draw()})),
+    h('div',{class:'two'},
+      h('label',{class:'f'}, h('span',{class:'lbl'},'Name'), h('input',{value:p.name, maxlength:40, autocomplete:'off', oninput:e=>{ p.name = e.target.value; }, onchange:()=>draw()})),
+      h('label',{class:'f'}, h('span',{class:'lbl'}, p.species==='other' ? 'Breed (optional)' : 'Breed'), h('input',{value:p.breed, maxlength:60, autocomplete:'off', oninput:e=>{ p.breed = e.target.value; }}))),
+    p.species==='other' && h('div',{}, h('span',{class:'lbl'}, 'Cage'),
+      h('div',{class:'seg'}, [[true,'I’ll bring one'],[false,'I need one']].map(([v,l]) => h('button',{class:p.cage===v ? 'on' : '', onclick:()=>{ p.cage = v; petsChanged(); }}, l))),
+      h('p',{class:'mut', style:'margin:6px 0 0;font-size:13px'}, p.cage ? 'Bring their cage or enclosure (or a temporary one).' : 'They’ll stay in a cat condo, if one is free.')),
+    h('div',{style:'margin-top:10px'}, h('span',{class:'lbl'}, 'Medication'),
+      h('div',{class:'seg'}, [[false,'None'],[true,'Needs meds']].map(([v,l]) => h('button',{class:!!p.medsOn===v ? 'on' : '', onclick:()=>{ p.medsOn = v; draw(); }}, l)))),
+    p.medsOn && h('label',{class:'f', style:'margin-top:8px'}, h('span',{class:'lbl'}, 'What and when'),
+      h('textarea',{rows:2, maxlength:300, placeholder:'Name, dose and when to give it. e.g. Apoquel 16 mg, 1 tablet with breakfast', oninput:e=>{ p.meds = e.target.value; }}, p.meds || '')),
+    h('label',{class:'f', style:'margin-top:8px'}, h('span',{class:'lbl'}, 'Notes about '+(p.name.trim() || 'this pet')+' (optional)'),
+      h('textarea',{rows:2, maxlength:300, placeholder:'Allergies, fears, how they do with other pets…', oninput:e=>{ p.note = e.target.value; }}, p.note || '')),
+    many && lettered(p) && h('div',{}, h('span',{class:'lbl'}, 'Kennel'),
+      h('div',{class:'chips'}, [...LETTERS.slice(0, F.pets.filter(lettered).length)].map(l => {
+        const clash = F.pets.some(x => x!==p && lettered(x) && x.g===l && x.species!==p.species);
+        return h('button',{class:'chip kl'+(p.g===l ? ' on' : ''), disabled:clash || null, title:clash ? 'Dogs and cats can’t share' : null,
+          'aria-label':'Kennel '+l, onclick:()=>{ p.g = l; petsChanged(); }}, l); }))));
+}
+// An estimate from her rates, the same way the app adds up a stay: per pet per night,
+// a discount for pets sharing a kennel, the late pickup fee (not on Sundays), and the fee for each drop-off or pickup outside her hours.
+const money = n => '$'+(Math.round(n*100)/100).toFixed(Number.isInteger(Math.round(n*100)/100) ? 0 : 2);
+function estimate(){
+  const R0 = INFO.rates; if(!R0 || !F.start || !F.end) return null;
+  const nights = Math.max(1, nightsBetween(F.start, F.end)), lines = [];
+  F.pets.forEach((p, i) => { const r = R0[p.species==='cat' ? 'cat' : p.species==='other' ? 'other' : 'dog'] || 0;
+    lines.push([petLabel(p, i)+' · '+nights+(nights===1 ? ' night' : ' nights')+' × '+money(r), nights*r]); });
+  if(R0.meds) F.pets.forEach((p, i) => { if(p.medsOn) lines.push([petLabel(p, i)+'’s meds · '+nights+(nights===1 ? ' night' : ' nights')+' × '+money(R0.meds), nights*R0.meds]); });
+  const by = {}; F.pets.forEach(p => { if(lettered(p)) by[p.species+p.g] = (by[p.species+p.g]||0) + 1; });
+  const sharing = Object.values(by).filter(n => n > 1).reduce((a, n) => a + n, 0);
+  if(sharing && R0.share) lines.push(['Sharing a kennel · '+sharing+' pets × '+nights+(nights===1 ? ' night' : ' nights')+' × −'+money(R0.share), -sharing*nights*R0.share]);
+  if(F.arr && !inHours(F.start, F.arr) && INFO.fee) lines.push(['Drop-off outside hours', INFO.fee]);
+  if(F.pick && !inHours(F.end, F.pick) && INFO.fee) lines.push(['Pickup outside hours', INFO.fee]);
+  else if(F.pick && eveTime(F.end, 'pick', F.pick)) lines.push(['Late pickup', INFO.eveFee]);
+  return {lines, total:lines.reduce((a, l) => a + l[1], 0)};
+}
+function estimateCard(){
+  const e = estimate(); if(!e) return null;
+  return h('div',{class:'card est'}, h('span',{class:'lbl'}, 'Estimated price'),
+    e.lines.map(([t, n]) => h('div',{class:'row el'}, h('span',{}, t), h('span',{}, (n < 0 ? '−' : '')+money(Math.abs(n))))),
+    h('div',{class:'row el tot'}, h('b',{}, 'Estimated total'), h('b',{}, money(e.total))),
+    h('p',{class:'mut', style:'margin:8px 0 0;font-size:13px'}, 'The final price is confirmed at pickup.'+(INFO.rates.card ? ' Card payments add '+INFO.rates.card+'%.' : '')));
+}
+const rangeOpen = (s, e) => { for(let d = s; d < e; d = addDays(d, 1)) if(nightOpen(d)===false) return false; return true; };
+const closedOn = d => DAYS[d]?.closed;
+
+function tapDay(d){
+  ERR = '';
+  if(!F.start || F.end || d <= F.start){
+    if(nightOpen(d)===false || d < firstOK() || d >= lastOK()) return;
+    F.start = d; F.end = null; F.arr = ''; F.pick = '';
+  } else {
+    if(!rangeOpen(F.start, d) || closedOn(d) || d > lastOK()){ ERR = 'Some nights in between are full or closed. Pick other dates.'; draw(); return; }
+    F.end = d; F.pick = '';
+  }
+  check();
+}
+function monthCal(){
+  const base = F.month || INFO.today.slice(0,7);
+  const [y, m] = base.split('-').map(Number);
+  const first = new Date(y, m-1, 1), lead = first.getDay(), n = new Date(y, m, 0).getDate();
+  if(!DAYS[ymdOf(first)] && !loading[base]){ loading[base] = 1; loadMonth(y, m-1); }
+  const minMonth = INFO.today.slice(0,7), maxMonth = lastOK().slice(0,7);
+  const go = k => { const d = new Date(y, m-1+k, 1); F.month = d.getFullYear()+'-'+pad2(d.getMonth()+1); draw(); };
+  const cells = [];
+  for(let i = 0; i < lead; i++) cells.push(h('div',{class:'day blank'}));
+  for(let i = 1; i <= n; i++){
+    const d = ymdOf(new Date(y, m-1, i)), x = DAYS[d], open = nightOpen(d);
+    const early = d < firstOK() || d > lastOK();
+    // a pickup day only needs the kennel to be open that day, not a free night
+    const pickable = F.start && !F.end && d > F.start && rangeOpen(F.start, d) && !closedOn(d) && d <= lastOK();
+    const cls = ['day'];
+    if(x?.closed) cls.push('closed'); else if(early || (open===false && !pickable)) cls.push('no');
+    if(F.start && F.end && d > F.start && d < F.end) cls.push('in');
+    if(d===F.start) cls.push('start'); if(d===F.end) cls.push('end');
+    // a full day says what's full: kennels (dogs) or condos (cats)
+    const n2 = need(), fullWhat = x && !x.closed && !early && open===false ? [n2.d && x.dogs < n2.d ? 'kennels' : null, n2.c && x.cats < n2.c ? 'condos' : null].filter(Boolean) : [];
+    const usable = pickable || (!early && open!==false && !x?.closed);
+    cells.push(h('button',{class:cls.join(' '), disabled:!usable || null, 'aria-label':wmd(d)+(x?.closed ? ', closed' : open===false ? ', full' : ''), onclick:()=>tapDay(d)},
+      i, x?.closed ? h('small',{},'closed') : fullWhat.length ? [fullWhat.map(t => h('small',{}, t)), h('small',{}, 'full')] : null));
+  }
+  return [h('div',{class:'mh'},
+      h('button',{'aria-label':'Previous month', disabled:base <= minMonth || null, onclick:()=>go(-1)}, '‹'),
+      h('b',{}, MONTHS[m-1]+' '+y),
+      h('button',{'aria-label':'Next month', disabled:base >= maxMonth || null, onclick:()=>go(1)}, '›')),
+    h('div',{class:'grid'}, ['S','M','T','W','T','F','S'].map(x => h('div',{class:'dow'}, x)), cells),
+    h('div',{class:'key'},
+      h('span',{}, h('span',{class:'sw', style:'background:var(--card);border:1px solid var(--field)'}), 'Open'),
+      h('span',{}, h('span',{class:'sw', style:'background:var(--off)'}), 'Full or not bookable'),
+      h('span',{}, h('span',{class:'sw', style:'background:repeating-linear-gradient(135deg,var(--field),var(--field) 3px,transparent 3px,transparent 6px)'}), 'Closed')),
+    h('p',{class:'mut', style:'margin:8px 0 0;font-size:13px'}, 'Dogs stay in kennels and cats in condos. A day that says full has no room for your pets that night.')];
+}
+const loading = {};
+
+// the posted drop-off and pickup times for that day, in half hours, plus "another time"
+// one time field per day; the list marks what costs extra, and a note says why
+const inHours = (day, t) => (INFO.hours?.[parseD(day).getDay()] || []).some(([a, b]) => a <= t && t <= b);
+// a late pickup (the kennel's used all day, like a late checkout), any day but Sunday, when the hours are only evenings
+const eveTime = (day, k, t) => k==='pick' && INFO.eveFee && INFO.eveFrom && t >= INFO.eveFrom && parseD(day).getDay()!==0;
+const timeFee = (day, k, t) => !t ? 0 : !inHours(day, t) ? (INFO.fee || 0) : eveTime(day, k, t) ? INFO.eveFee : 0;
+function timeNote(day, k){
+  const t = F[k]; if(!t) return null;
+  if(!inHours(day, t)) return INFO.fee ? h('p',{class:'tnote'}, h('b',{}, '+$'+INFO.fee+'.'), ' That’s outside our drop-off and pickup hours.') : null;
+  if(eveTime(day, k, t)) return h('p',{class:'tnote'}, h('b',{}, '+$'+INFO.eveFee+'.'), ' Late pickup fee.');
+  return null;
+}
+function timePick(day, k, label){
+  const t = F[k];
+  return h('div',{class:'f'}, h('span',{class:'lbl'}, label+', '+wmd(day)),
+    h('button',{class:'tbtn'+(t ? '' : ' empty'), onclick:()=>{ PICK = {day, k, label}; draw(); }},
+      h('span',{}, t ? t12(t) : 'Pick a time'), h('span',{class:'mut'}, '▾')),
+    timeNote(day, k));
+}
+// the time picker: wheels for hour, minutes and AM/PM, with a line that says what the
+// chosen time costs (her hours, the late pickup fee, or the outside-hours fee)
+const IH = 40;   // wheel row height
+function wheel(values, cur, onChange, label){
+  let idx = Math.max(0, values.findIndex(v => v[0]===cur));
+  const items = values.map(([v, l], i) => h('div',{class:'wi'+(i===idx ? ' sel' : ''), onclick:()=>el.scrollTo({top:i*IH, behavior:'smooth'})}, l));
+  const el = h('div',{class:'wheel', role:'listbox', 'aria-label':label, tabindex:'0'}, h('div',{class:'sp'}), items, h('div',{class:'sp'}));
+  el.onscroll = () => { const i = Math.max(0, Math.min(values.length-1, Math.round(el.scrollTop/IH)));
+    if(i!==idx){ items[idx].classList.remove('sel'); items[i].classList.add('sel'); idx = i; onChange(values[i][0]); } };
+  el.onkeydown = e => { if(e.key==='ArrowDown' || e.key==='ArrowUp'){ e.preventDefault(); el.scrollTo({top:(idx+(e.key==='ArrowDown' ? 1 : -1))*IH, behavior:'smooth'}); } };
+  requestAnimationFrame(() => { el.scrollTop = idx*IH; });
+  return el;
+}
+const hoursText = day => { const w = INFO.hours?.[parseD(day).getDay()] || [];
+  return w.length ? 'Our hours this day: '+w.map(([a, b]) => t12(a).replace(':00','')+'–'+t12(b).replace(':00','')).join(', ') : 'We have no drop-off or pickup hours this day.'; };
+function feeLine(day, k, t){
+  if(!inHours(day, t)) return INFO.fee ? ['fee', '+$'+INFO.fee+': that’s outside our drop-off and pickup hours.'] : ['ok', 'Outside our usual hours.'];
+  if(eveTime(day, k, t)) return ['fee', '+$'+INFO.eveFee+' late pickup fee.'];
+  return ['ok', 'In our hours, no extra charge.'];
+}
+function timeSheet(){
+  if(!PICK) return null;
+  const {day, k, label} = PICK;
+  const P = PICK.v ||= (() => { const w = INFO.hours?.[parseD(day).getDay()] || []; const t = F[k] || (w[0] ? w[0][0] : '09:00');
+    const H = +t.slice(0,2), M = Math.round(+t.slice(3)/15)*15 % 60; return {h:((H+11)%12)+1, m:M, pm:H>=12}; })();
+  const val = () => pad2((P.h % 12) + (P.pm ? 12 : 0))+':'+pad2(P.m);
+  const status = h('div',{class:'tstat'});
+  const show = () => { const [kind, text] = feeLine(day, k, val()); status.className = 'tstat '+kind; status.textContent = text; };
+  const set = (key, v) => { P[key] = v; show(); };
+  const close = () => { PICK = null; draw(); };
+  show();
+  return h('div',{class:'tov', onclick:e=>{ if(e.target===e.currentTarget) close(); }},
+    h('div',{class:'tsh', role:'dialog', 'aria-label':label+' time'},
+      h('div',{style:'padding:16px 16px 4px'}, h('b',{style:'font-size:18px'}, label+' · '+wmd(day)), h('div',{class:'mut', style:'margin-top:2px'}, hoursText(day))),
+      h('div',{class:'wheels'}, h('div',{class:'whl'}),
+        wheel([...Array(12)].map((_, i) => [i+1, String(i+1)]), P.h, v=>set('h', v), 'Hour'),
+        h('div',{class:'colon'}, ':'),
+        wheel([0,15,30,45].map(m => [m, pad2(m)]), P.m, v=>set('m', v), 'Minutes'),
+        wheel([[false,'AM'],[true,'PM']], P.pm, v=>set('pm', v), 'AM or PM')),
+      status,
+      h('div',{class:'two', style:'padding:4px 16px 16px'}, h('button',{class:'b2', onclick:close}, 'Cancel'),
+        h('button',{class:'b', onclick:()=>{ F[k] = val(); PICK = null; draw(); }}, 'Set time'))));
+}
+let PICK = null;
+
+function input(k, label, a = {}){
+  return h('label',{class:'f'}, h('span',{class:'lbl'}, label),
+    h(a.area ? 'textarea' : 'input', {value:F[k], autocomplete:a.ac || 'off', type:a.type || null, inputmode:a.im || null, maxlength:a.max || null, placeholder:a.ph || null,
+      oninput:e => { F[k] = e.target.value; }, onchange:e => { if(k==='phone') e.target.value = F.phone = fmtPhone(F.phone); }}, a.area ? F[k] : null));
+}
+
+
+/* ---------- error messages people can understand ----------
+   Messages about something they can fix (a missing name, no open spots...) are shown as the
+   server sent them. Anything technical becomes a plain, kind message: it didn't go through,
+   their answers are still here, try again, or call or text us. */
+const FIXABLE = /^(Pick your dates|Enter your name|Enter a phone|Pick drop-off|Add your pets|Check your pets|Say what kind|Pick dog, cat|A dog and a cat|Not enough open spots|You already have a request|We\u2019re getting a lot|Sign the form|Online requests aren\u2019t set up)/;
+const CALL_TEXT = '(308) 233-2652';
+const oops = what => 'Sorry, something went wrong on our side and your '+what+' didn\u2019t go through. Your answers are still here, so please try again in a minute. If it keeps happening, call or text us at '+CALL_TEXT+'.';
+const offline = what => 'Your '+what+' didn\u2019t go through because the connection dropped. Your answers are still here, so try again once you\u2019re back online.';
+const ROBOT_LOAD = 'The quick \u201cI\u2019m not a robot\u201d check didn\u2019t load. Please refresh the page and try again.';
+const ROBOT_FAIL = 'The quick \u201cI\u2019m not a robot\u201d check didn\u2019t go through. Please try sending again.';
+// a reply from the server that wasn't ok
+const reasonText = (r, what) => !r ? oops(what) : /human check/i.test(r) ? ROBOT_FAIL : FIXABLE.test(r) ? r : oops(what);
+// something that threw on the way (no connection, robot check, a bad reply)
+const thrownText = (e, what) => /didn.t load/.test(e && e.message || '') ? ROBOT_LOAD : /human check/i.test(e && e.message || '') ? ROBOT_FAIL
+  : (navigator.onLine===false || e instanceof TypeError) ? offline(what) : oops(what);
+async function send(){
+  ERR = '';
+  const n = F.pets.findIndex(p => !p.name.trim() || (p.species==='other' && !(p.kind||'').trim()));
+  const digits = F.phone.replace(/\D/g,'');
+  ERR = !F.start || !F.end ? 'Pick your dates.' : !F.arr || !F.pick ? 'Pick drop-off and pickup times.'
+    : F.name.trim().length < 2 ? 'Enter your name.' : !(digits.length===10 || (digits.length===11 && digits[0]==='1')) ? 'Enter a phone number with area code.'
+    : n >= 0 ? 'Enter a name (and kind, for other pets) for each pet in step 1.'
+    : F.pets.some(p => p.medsOn && !(p.meds||'').trim()) ? 'Say what medication and when, or pick None, in step 1.' : '';
+  if(ERR){ draw(); return; }
+  SENDING = true; draw();
+  try {
+    const token = await humanCheck();
+    const res = await fetch(SEND_URL, {method:'POST', headers:{apikey:SEND_KEY, Authorization:'Bearer '+SEND_KEY, 'Content-Type':'application/json'},
+      body:JSON.stringify({token, p:{key:F.key, from:(() => { try { return sessionStorage.getItem('lvpl-from') || undefined; } catch(e) { return undefined; } })(), start:F.start, end:F.end, arr:F.arr, pick:F.pick, name:F.name.trim(), phone:F.phone.trim(), email:F.email.trim(), notes:F.notes.trim(), bringing:F.items.trim().replace(/\s*\n\s*/g, ', '),
+        ownFood:F.ownFood, pets:F.pets.map(p => ({name:p.name.trim(), species:p.species, breed:p.breed.trim(), group:lettered(p) ? p.g : null, kind:p.species==='other' ? (p.kind||'').trim() : undefined, cage:p.species==='other' ? !!p.cage : undefined,
+        meds:p.medsOn && (p.meds||'').trim() ? p.meds.trim() : undefined, note:(p.note||'').trim() || undefined}))}})});
+    const r = await res.json().catch(() => ({ok:false}));
+    if(r.ok){
+      MEM.reqs = [{token:r.token, start:F.start, end:F.end}, ...MEM.reqs.filter(x => x.token!==r.token)].slice(0, 8);
+      MEM.me = {ownFood:F.ownFood, name:F.name.trim(), phone:F.phone.trim(), email:F.email.trim(), pets:F.pets.map(p => ({species:p.species, name:p.name.trim(), breed:p.breed.trim(), g:p.g, kind:p.kind, cage:p.cage, medsOn:!!p.medsOn, meds:p.meds||'', note:p.note||''}))};
+      saveMem(); try { sessionStorage.setItem('lvpl-new', r.token); sessionStorage.removeItem('lvpl-from'); } catch(e) {}
+      location.assign('?r='+r.token); return; }
+    else { ERR = reasonText(r.reason, 'request'); if(/spots|closed|soon|far|shortest/i.test(r.reason || '')){ DAYS = {}; for(const k in loading) delete loading[k]; check(); } }
+  } catch(e){ ERR = thrownText(e, 'request'); }
+  SENDING = false; draw();
+}
+
+/* ---------- screens ---------- */
+function header(sub){ return [h('h1',{style:'margin-bottom:10px'}, sub)]; }
+// the number never wraps: Call gets the wider share
+const callUs = () => h('div',{class:'two', style:'margin-top:10px'}, h('a',{class:'b2', style:'flex:1.6;display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--ink);white-space:nowrap;padding:0 10px', href:'tel:'+PHONE}, 'Call '+PHONE_TEXT), h('a',{class:'b2', style:'display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--ink);white-space:nowrap;padding:0 10px', href:'sms:'+PHONE}, 'Text us'));
+function formView(){
+  if(!INFO.on) return [header('Request a stay'), mineBox(), h('div',{class:'warn'}, INFO.offNote || 'Online requests are paused right now. Please call or text us to book.'), callUs()];
+  const n = need(), nights = F.start && F.end ? nightsBetween(F.start, F.end) : 0;
+  const room = CHECK && CHECK.ok && [n.d && plural(CHECK.dogs, 'dog kennel'), n.c && plural(CHECK.cats, 'cat condo')].filter(Boolean).join(' · ');
+  const want = [n.d && plural(n.d, 'dog kennel'), n.c && plural(n.c, 'cat condo')].filter(Boolean).join(' and ');
+  const enough = CHECK && CHECK.ok && CHECK.dogs >= n.d && CHECK.cats >= n.c;
+  return [header('Request a stay'), mineBox(),
+    h('p',{class:'mut'}, 'See what’s open and send a request. We’ll confirm by text or call. Nothing is booked until we do.'),
+    h('h2',{}, '1. Who’s staying?'),
+    h('div',{class:'card'}, F.pets.map(petCard),
+      F.pets.length > 1 && h('div',{class:'sharing'}, F.pets.filter(lettered).length > 1 && h('span',{class:'mut'}, 'Same letter = same kennel. '), shareText()),
+      F.pets.length < 6 && h('button',{class:'b2', style:'width:100%;margin-top:10px', onclick:()=>{ F.pets.push({species:'dog', name:'', breed:'', g:freeLetter('dog')}); petsChanged(); }}, '+ Add another pet'),
+      h('div',{style:'margin-top:14px'}, h('span',{class:'lbl'}, F.pets.length > 1 ? 'Bringing their own food?' : 'Bringing their own food?'),
+        h('div',{class:'seg'}, [[false,'No, use yours'],[true,'Yes, we’ll bring it']].map(([v,l]) => h('button',{class:F.ownFood===v ? 'on' : '', onclick:()=>{ F.ownFood = v; draw(); }}, l))))),
+    h('h2',{}, F.start && !F.end ? '2. Now pick the pickup day' : '2. Pick drop-off, then pickup'),
+    h('div',{class:'card'}, monthCal()),
+    F.start && h('div',{class:'card'},
+      h('div',{class:'big'}, md(F.start)+(F.end ? ' – '+md(F.end) : ' – ?')),
+      F.end && h('div',{class:'mut'}, plural(nights,'night')),
+      F.end && (!CHECK ? h('p',{class:'mut', style:'margin:8px 0 0'}, 'Checking…')
+        : !CHECK.ok ? h('div',{class:'warn'}, CHECK.reason)
+        : enough ? h('div',{class:'ok'}, h('b',{}, 'Good news, we have room for '+(F.pets.length===1 ? petLabel(F.pets[0], 0) : F.pets.length > 3 ? 'all your pets' : listOf(F.pets.map(petLabel)))+' those dates.'))
+        : h('div',{class:'warn'}, 'Sorry, we don’t have room for '+(F.pets.length===1 ? petLabel(F.pets[0], 0) : 'all of them')+' those dates. Try other days, or call us.'))),
+    ERR && !F.end && h('div',{class:'err'}, ERR),
+    enough && [
+      h('h2',{}, '3. Times'),
+      timePick(F.start, 'arr', 'Drop-off'),
+      timePick(F.end, 'pick', 'Pickup'),
+      estimateCard(),
+      h('h2',{}, '4. About you'),
+      input('name','Your name',{ac:'name', max:80}),
+      h('div',{class:'two'}, input('phone','Phone',{type:'tel', ac:'tel', im:'tel', max:20}), input('email','Email (optional)',{type:'email', ac:'email', max:120})),
+      input('items','What are you bringing? (optional)',{area:true, max:300, ph:'e.g. Bed, leash, toys'}),
+      input('notes','Anything else? (optional)',{area:true, max:1000}),
+      ERR && h('div',{class:'err', role:'alert'}, ERR),
+      h('button',{class:'b', disabled:SENDING || null, onclick:send}, SENDING ? 'Sending…' : 'Send request'),
+      h('p',{class:'mut', style:'margin-top:10px'}, 'Your spot is held while we look at your request.')]];
+}
+const LABEL = {pending:'Waiting for our reply', approved:'Booked', declined:'Couldn’t book', cancelled:'Cancelled', expired:'Couldn’t book', deleted:'Cancelled'};
+// the headline on the request's own page
+const TITLE = {pending:'Waiting for our reply', approved:'You’re booked!', declined:'Sorry, we couldn’t book this stay', expired:'Sorry, we couldn’t book this stay', cancelled:'Cancelled', deleted:'Cancelled'};
+function mineBox(){
+  if(!MINE.length) return null;
+  return h('div',{class:'card'}, h('span',{class:'lbl'}, MINE.length===1 ? 'Your request' : 'Your requests'),
+    MINE.map(x => h('a',{class:'mine', href:'?r='+x.token},
+      h('span',{class:'grow'}, md(x.start)+' – '+md(x.end), h('small',{}, x.names)),
+      h('span',{class:'st st-'+x.status}, LABEL[x.status] || x.status), h('span',{class:'mut'}, '›'))));
+}
+// What the request still needs before drop-off (the server works it out: form_needs). Never required:
+// they can always skip it and bring the paper form at drop-off.
+const listNames = n => n.length > 1 ? n.slice(0, -1).join(', ')+' and '+n[n.length-1] : n[0] || '';
+function formCard(s){
+  const f = s.form;
+  if(!f) return (s.status==='pending' || s.status==='approved') && h('div',{style:'margin-top:4px'}, 'First time with us? ', h('a',{href:'guest-form.html?r='+TOKEN}, 'Fill out the guest form'), ' so it’s ready at drop-off.');
+  const go = (label) => h('a',{class:'b', href:'guest-form.html?r='+TOKEN, style:'display:flex;align-items:center;justify-content:center;text-decoration:none;margin-top:10px'}, label);
+  const paper = h('p',{class:'mut', style:'margin:10px 0 0;font-size:14px'}, 'Rather do it on paper? That’s fine, just bring it filled out at drop-off. ',
+    h('a',{href:'new-form-line-art.pdf', target:'_blank', rel:'noopener'}, 'Print a blank one'), '.');
+  const upd = (href, label) => h('a',{class:'b2', href, style:'display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--ink);margin-top:10px'}, label);
+  if(f.sent) return h('div',{class:'card'}, h('b',{}, 'Guest form received'), h('div',{class:'mut', style:'margin-top:4px'}, 'Thanks! If anything changes before drop-off, you can update it.'),
+    upd('guest-form.html?r='+TOKEN, 'Update my guest form'));
+  const pets = f.newPets || [];
+  if(!f.family) return h('div',{class:'card'}, h('b',{}, 'First time with us? One more step'),
+    h('div',{class:'mut', style:'margin-top:4px'}, 'Before your first stay we need a guest form: your details, a page for each pet, and our waiver. It takes about 10 minutes, and you can do it now or anytime before drop-off.'),
+    go('Fill out the guest form'), paper,
+    h('p',{class:'mut', style:'margin:8px 0 0;font-size:14px'}, 'Been here before but something changed, like your phone number? Please fill it out again so we have your latest details.'));
+  if(f.update) return h('div',{class:'card'}, h('b',{}, 'Please check your details'),
+    h('div',{class:'mut', style:'margin-top:4px'}, f.newPhone ? 'This phone number is new to us, so please look over your guest form and update anything that’s changed.' : 'We’d like to make sure we have your latest information. It only takes a minute to look it over.'),
+    go('Review my guest form'), paper);
+  if(pets.length) return h('div',{class:'card'}, h('b',{}, 'New pet? We’ll need a page for '+listNames(pets)),
+    h('div',{class:'mut', style:'margin-top:4px'}, 'We have your family on file, but not '+listNames(pets)+' yet. Their page takes a few minutes.'),
+    go(pets.length > 1 ? 'Fill out their pages' : 'Fill out '+pets[0]+'’s page'), paper);
+  return h('div',{class:'card'}, h('b',{}, 'Guest form on file'),
+    f.formDate && h('div',{style:'margin-top:2px'}, 'Last updated '+longDate(f.formDate)),
+    h('div',{class:'mut', style:'margin-top:4px'}, 'Something changed, like your phone number, vet or your pet’s care? Update it so we have the latest.'),
+    upd('guest-form.html?update', 'Update my guest form'));
+}
+/* Vet or shot records for this request's pets (optional), new customers or returning ones.
+   Photos are redrawn as a JPEG up to 2000px; PDFs go as they are; up to 6 per pet, 10 MB each.
+   Sending runs the human check, the server gives each file its place and a one-time upload link,
+   and the files go straight to the kennel's private storage. A file that didn't finish uploading
+   keeps its link, so "Send" again just retries it. */
+const RQ = {files:{}, err:'', busy:false, ok:''};   // files[pet index] = [{name, kind, blob, url, ix, link, path, sent}]
+let RQIX = 0;
+/* A small copy of each photo they sent from this page stays on this phone (the real files are private),
+   so "Sent" can show what it was. Kept per request until the stay is over:
+   lvpl-sent-recs = {token: {end, at: {'<pet>-<n>': data URL}}}, n = the file's place among that pet's files sent here. */
+const SENTKEY = 'lvpl-sent-recs';
+let SENTRECS = {};
+try { SENTRECS = JSON.parse(localStorage.getItem(SENTKEY)) || {}; const t = ymdOf(new Date());
+  for(const k in SENTRECS) if(!SENTRECS[k] || !SENTRECS[k].end || SENTRECS[k].end < t) delete SENTRECS[k]; localStorage.setItem(SENTKEY, JSON.stringify(SENTRECS)); } catch(e) { SENTRECS = {}; }
+async function keepSent(path, blob, end){
+  const m = /(\d+)-(\d+)\.jpg$/.exec(path || ''); if(!m) return;
+  try {
+    const small = await shrinkImage(blob, 480), url = await new Promise((ok, no) => { const fr = new FileReader(); fr.onload = () => ok(fr.result); fr.onerror = no; fr.readAsDataURL(small); });
+    const e = SENTRECS[TOKEN] ||= {end, at:{}}; e.end = end; e.at[m[1]+'-'+m[2]] = url;
+    localStorage.setItem(SENTKEY, JSON.stringify(SENTRECS));
+  } catch(e) {}   // full storage or a private window: it just shows a check mark
+}
+let PEEK = null;   // a sent photo shown big
+async function shrinkImage(file, max = 2000){
+  let im;
+  try { im = await createImageBitmap(file); }
+  catch(e){ im = await new Promise((ok, no) => { const x = new Image(); x.onload = () => ok(x); x.onerror = no; x.src = URL.createObjectURL(file); }); }
+  const k = Math.min(1, max / Math.max(im.width, im.height));
+  const cv = document.createElement('canvas'); cv.width = Math.round(im.width*k); cv.height = Math.round(im.height*k);
+  const ctx = cv.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, cv.width, cv.height); ctx.drawImage(im, 0, 0, cv.width, cv.height);
+  return new Promise((ok, no) => cv.toBlob(b => b ? ok(b) : no(new Error('bad image')), 'image/jpeg', .82));
+}
+async function addRecs(i, files, room){
+  RQ.err = ''; RQ.ok = '';
+  const list = RQ.files[i] ||= [];
+  for(const f of files){
+    if(list.length >= room){ RQ.err = 'That’s as many as we can take for one pet here.'; break; }
+    const pdf = f.type==='application/pdf' || /\.pdf$/i.test(f.name);
+    if(!pdf && !/^image\//.test(f.type)){ RQ.err = 'Only photos and PDFs can be added.'; continue; }
+    let blob = f;
+    if(!pdf){ try { blob = await shrinkImage(f); } catch(e){ RQ.err = 'Couldn’t read that photo. Try another one.'; continue; } }
+    if(blob.size > 10e6){ RQ.err = 'That file is too big (over 10 MB).'; continue; }
+    const name = 'Vet record';   // they don't name them; the app shows Photo or PDF and the pet
+    list.push({name, kind:pdf ? 'pdf' : 'img', blob, url:pdf ? '' : URL.createObjectURL(blob), ix:RQIX++});
+  }
+  draw();
+}
+const longDate = v => new Date(v+'T12:00:00').toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+async function sendRecs(){
+  RQ.err = ''; RQ.ok = ''; RQ.busy = true; draw();
+  const all = Object.entries(RQ.files).flatMap(([i, l]) => l.map(r => ({r, pet:+i})));
+  try {
+    const fresh = all.filter(x => !x.r.link);
+    if(fresh.length){
+      const token = await humanCheck();
+      const res = await fetch(SEND_URL, {method:'POST', headers:{apikey:SEND_KEY, Authorization:'Bearer '+SEND_KEY, 'Content-Type':'application/json'},
+        body:JSON.stringify({token, kind:'records', p:{req:TOKEN, docs:fresh.map(x => ({ix:x.r.ix, pet:x.pet, name:x.r.name, kind:x.r.kind}))}})});
+      const out = await res.json().catch(() => ({ok:false}));
+      if(!out.ok){ RQ.busy = false; RQ.err = /^(This request is closed|That’s as many)/.test(out.reason || '') ? out.reason : reasonText(out.reason, 'records'); draw(); return; }
+      (out.docs || []).forEach(d => { const x = fresh.find(y => y.r.ix===d.ix); if(x){ x.r.path = d.path; x.r.link = (out.uploads || []).find(u => u.path===d.path)?.url || 'none'; } });
+    }
+    let failed = 0;
+    for(const x of all){
+      if(x.r.sent) continue;
+      try {
+        if(!x.r.link || x.r.link==='none') throw new Error('no link');
+        const up = await fetch(x.r.link, {method:'PUT', headers:{'Content-Type':x.r.kind==='pdf' ? 'application/pdf' : 'image/jpeg', 'x-upsert':'false'}, body:x.r.blob});
+        if(!up.ok){ const t = await up.text().catch(() => ''); if(!(up.status===409 || /duplicate|already exists/i.test(t))) throw new Error(t); }
+        x.r.sent = true;
+        if(x.r.kind==='img') await keepSent(x.r.path, x.r.blob, STATUS && STATUS.end);
+      } catch(e){ failed++; }
+    }
+    // sent ones now show from the server; any that didn't upload stay here to try again
+    Object.keys(RQ.files).forEach(i => { RQ.files[i] = RQ.files[i].filter(r => !r.sent); });
+    try { await refresh(); } catch(e) {}
+    if(failed) RQ.err = (failed===1 ? 'One file' : failed+' files')+' didn’t finish uploading. Check your connection and tap Send again.';
+    else RQ.ok = 'Thanks! We got your records.';
+  } catch(e){ RQ.err = thrownText(e, 'records'); }
+  RQ.busy = false; draw();
+}
+function recsCard(s){
+  if(!s.form) return null;   // only while it's waiting or booked and the stay is ahead
+  const sent = s.docs || [], picked = Object.values(RQ.files).reduce((a, l) => a + l.length, 0);
+  // every pet already has records (sent here or with the guest form): say so, so nobody sends the same thing twice
+  const allIn = s.pets.length > 0 && s.pets.every((p, i) => sent.some(d => d.pet===i));
+  const fromForm = sent.some(d => d.form);
+  // a family we know: the newest record we have for each pet (from any stay, any phone)
+  const onFile = i => (s.form.onFile || []).find(x => x.pet===i)?.at;
+  const filed = s.pets.length > 0 && s.pets.every((p, i) => sent.some(d => d.pet===i) || onFile(i));
+  return h('div',{class:'card recs'}, h('b',{}, 'Vet or shot records'),
+    h('div',{class:'mut', style:'margin-top:4px'}, allIn
+      ? 'Thanks, we have '+(s.pets.length > 1 ? 'records for each of your pets' : 'your pet’s records')+(fromForm ? ' from your guest form' : '')+'! You only need to add more if something has changed.'
+      : filed
+      ? 'We have records on file for '+(s.pets.length > 1 ? 'your pets' : s.pets[0].name)+' (dates below). If they’ve had shots since then, please send the new ones here!'
+      : !s.form.family
+      ? 'If you are new, we will need updated shot records for your pet’s stay. You can upload them here!'+(s.form.sent ? '' : ' (Or add them in the guest form. Either one is fine, no need for both.)')
+      : 'Make sure your pet is up to date on their vaccinations and that we have their updated records too! You can upload them here.'),
+    s.pets.map((p, i) => { const had = sent.filter(d => d.pet===i), list = RQ.files[i] || [], room = 6 - had.length;
+      return h('div',{class:'rpet'}, h('div',{class:'rpn'}, p.name),
+        !had.length && onFile(i) && h('div',{class:'rec'}, h('span',{class:'rthumb'}, '✓'), h('span',{class:'rname'}, 'On file'), h('span',{class:'mut'}, 'Last updated '+longDate(onFile(i)))),
+        had.map(d => { const n = had.filter(x => !!x.form===!!d.form).indexOf(d);
+          const kept = d.kind!=='pdf' && SENTRECS[TOKEN]?.at[d.form ? 'f:'+p.name.trim().toLowerCase()+':'+n : i+'-'+n];
+          return h('div',{class:'rec'}, kept ? h('button',{class:'rthumb', 'aria-label':'See '+d.name, onclick:()=>{ PEEK = kept; draw(); }}, h('img',{src:kept, alt:''}))
+            : h('span',{class:'rthumb'}, d.kind==='pdf' ? 'PDF' : '✓'), h('span',{class:'rname'}, d.kind==='pdf' ? 'PDF' : 'Photo'), h('span',{class:'mut'}, d.form ? 'Sent with your guest form' : 'Sent')); }),
+        list.map((r, j) => h('div',{class:'rec'}, h('span',{class:'rthumb'}, r.url ? h('img',{src:r.url, alt:''}) : 'PDF'), h('span',{class:'rname'}, r.kind==='pdf' ? 'PDF' : 'Photo'),
+          !RQ.busy && h('button',{class:'lk bad', onclick:()=>{ if(r.url) URL.revokeObjectURL(r.url); list.splice(j, 1); RQ.err = ''; draw(); }}, 'Remove'))),
+        list.length < room && !RQ.busy && h('label',{class:'b2'}, had.length || list.length ? '+ Add another' : '+ Add photo or PDF',
+          h('input',{type:'file', accept:'image/*,application/pdf', multiple:true, style:'display:none', onchange:e => addRecs(i, [...e.target.files], room)}))); }),
+    RQ.err && h('div',{class:'err', role:'alert'}, RQ.err),
+    RQ.ok && !picked && h('div',{class:'ok'}, RQ.ok),
+    picked > 0 && h('button',{class:'b', disabled:RQ.busy || null, onclick:sendRecs}, RQ.busy ? 'Sending…' : 'Send '+plural(picked, 'record')),
+    PEEK && h('div',{class:'peek', role:'dialog', 'aria-label':'Sent record', onclick:()=>{ PEEK = null; draw(); }}, h('img',{src:PEEK, alt:'Sent record'})));
+}
+function statusView(){
+  if(STATUS===null) return [header('Your request'), h('p',{class:'mut'},'Loading…')];
+  if(!STATUS) return [header('Your request'), h('div',{class:'warn'}, 'We couldn’t find that request. Check the link.'), h('a',{href:location.pathname, class:'lk'}, 'Make a new request')];
+  if(STATUS.status==='closed') return [header('Your request'), h('div',{class:'card'}, h('b',{}, 'This request is closed'),
+      h('div',{class:'mut'}, 'Its details aren’t shown any more. Questions about it? Call or text us.')),
+    callUs(), h('a',{href:location.pathname, class:'b', style:'display:flex;align-items:center;justify-content:center;text-decoration:none;margin-top:12px'}, 'Make a new request')];
+  const s = STATUS, waiting = s.status==='pending';
+  const names = s.pets.map(p => p.name).join(', ');
+  const link = location.origin + location.pathname + '?r=' + TOKEN;
+  return [header('Your request'),
+    JUST && waiting && h('div',{class:'ok'}, h('b',{}, 'Request sent. Thanks'+(MEM.me?.name ? ', '+MEM.me.name.split(/\s+/)[0] : '')+'!')),
+    h('div',{class:s.status==='approved' ? 'ok' : waiting ? 'card' : 'warn'}, h('b',{}, TITLE[s.status] || LABEL[s.status] || s.status),
+      waiting ? h('div',{class:'mut'}, 'We’ll text or call you soon. This page updates by itself.')
+      : s.status==='approved' ? h('div',{}, 'See you then!')
+      : s.status==='declined' || s.status==='expired' ? h('div',{}, 'If other dates work, you can make a new request, or call or text us.') : null),
+    s.reply && h('div',{class:'card'}, h('span',{class:'lbl'}, 'Note from us'), s.reply),
+    h('div',{class:'card'},
+      h('div',{}, h('b',{}, 'Drop-off '), wmd(s.start)+', '+t12(s.arr)),
+      h('div',{}, h('b',{}, 'Pickup '), wmd(s.end)+', '+t12(s.pick)),
+      h('div',{class:'mut'}, names)),
+    formCard(s),
+    recsCard(s),
+    // while it's waiting they can take it back or change it; once booked, they call
+    waiting && (CONFIRM
+      ? h('div',{class:'card'}, h('p',{}, CONFIRM==='change' ? 'Change it? This request is cancelled and a new one opens with your details filled in.' : 'Cancel this request?'),
+          h('div',{class:'two'}, h('button',{class:'b2', onclick:()=>{ CONFIRM = false; draw(); }}, 'Keep it'),
+            h('button',{class:'b', style:CONFIRM==='change' ? '' : 'background:var(--bad);color:var(--bg)', onclick:()=>cancelIt(CONFIRM==='change')}, CONFIRM==='change' ? 'Yes, change it' : 'Yes, cancel')))
+      : h('div',{class:'two'}, h('button',{class:'b2', onclick:()=>{ CONFIRM = 'change'; draw(); }}, 'Change it'),
+          h('button',{class:'b2', style:'color:var(--bad)', onclick:()=>{ CONFIRM = 'cancel'; draw(); }}, 'Cancel request'))),
+    s.status==='approved' && [h('p',{class:'mut', style:'margin:14px 0 0'}, 'Need to change or cancel? Please call or text us.'), callUs()],
+    ERR && h('div',{class:'err'}, ERR),
+    !waiting && s.status!=='approved' && h('a',{href:location.pathname, class:'b', style:'display:flex;align-items:center;justify-content:center;text-decoration:none;margin-top:12px'}, 'Make a new request'),
+    h('div',{class:'card', style:'margin-top:14px'}, h('span',{class:'lbl'}, 'Link to this page'),
+      h('p',{class:'mut', style:'margin:0 0 10px'}, 'It’s saved on this device and shows on our site. To check from another phone or computer, copy this link.'),
+      h('div',{class:'link', style:'margin-bottom:10px'}, link),
+      h('button',{class:'b2', onclick:e=>{ navigator.clipboard?.writeText(link).then(() => { e.target.textContent = 'Copied'; }); }}, 'Copy link'))];
+}
+let CONFIRM = false, JUST = false;
+try { JUST = sessionStorage.getItem('lvpl-new')===new URLSearchParams(location.search).get('r'); } catch(e) {}
+async function cancelIt(change){
+  try {
+    const ok = await rpc('request_cancel', {p_token:TOKEN});
+    if(!ok){ ERR = 'This request was already answered, so it can’t be changed here. Please call or text us.'; }
+    else if(change){ try { sessionStorage.setItem('lvpl-from', TOKEN); } catch(e) {} location.href = location.pathname; return; }   // records follow to the new request
+    CONFIRM = false; await refresh();
+  } catch(e){ ERR = navigator.onLine===false ? 'That didn’t go through because the connection dropped. Please try again once you’re back online.' : 'Sorry, something went wrong on our side and that didn’t go through. Please try again in a minute, or call or text us at '+CALL_TEXT+'.'; }
+  draw();
+}
+async function refresh(){
+  const st = await rpc('request_status', {p_token:TOKEN}) || false;
+  if(JSON.stringify(st)!==JSON.stringify(STATUS)){ STATUS = st; }
+  // opened from a copied link: remember it on this device too
+  if(st && !MEM.reqs.some(x => x.token===TOKEN)){ MEM.reqs = [{token:TOKEN, start:st.start, end:st.end}, ...MEM.reqs].slice(0, 8); saveMem(); }
+}
+
+function draw(){
+  const app = document.getElementById('app');
+  const y = scrollY, a = document.activeElement, focusId = a && a.closest('label') ? [...app.querySelectorAll('input,textarea')].indexOf(a) : -1;
+  app.replaceChildren(...[TOKEN ? statusView() : INFO ? [formView(), timeSheet()] : [header('Request a stay'), h(ERR ? 'div' : 'p', {class:ERR ? 'err' : 'mut'}, ERR || 'Loading…')]].flat(Infinity).filter(Boolean));
+  if(focusId >= 0) app.querySelectorAll('input,textarea')[focusId]?.focus();
+  scrollTo(0, y);
+}
+
+const TOKEN = new URLSearchParams(location.search).get('r');
+(async () => {
+  if(TOKEN){
+    draw();
+    // the preview copy only: a made-up request to look at; nothing sends. ?r=demo (new customer, nothing yet),
+    // demo-done (new customer, sent from this page), demo-sent (records came with the guest form),
+    // demo-back (returning customer, one pet sent from this page)
+    if(/-preview\//.test(location.pathname) && /^demo(-back|-sent|-done)?$/.test(TOKEN)){ const d = n => { const x = new Date(); x.setDate(x.getDate()+n); return ymdOf(x); };
+      const newOne = TOKEN==='demo' || TOKEN==='demo-done';
+      STATUS = {status:newOne ? 'pending' : 'approved', start:d(7), end:d(10), arr:'09:00', pick:'17:00', reply:null,
+        pets:[{name:'Biscuit', species:'dog'},{name:'Clio', species:'dog'}], form:{family:TOKEN==='demo-back', sent:TOKEN!=='demo' && TOKEN!=='demo-back', formDate:TOKEN==='demo-back' ? d(-200) : null, onFile:TOKEN==='demo-back' ? [{pet:1, at:d(-200)}] : []},
+        docs:TOKEN==='demo-sent' ? [{pet:0, name:'Vet record', kind:'img', form:true}, {pet:1, name:'Vet record', kind:'pdf', form:true}]
+          : TOKEN==='demo-done' ? [{pet:0, name:'Vet record', kind:'img'}, {pet:0, name:'Vet record', kind:'pdf'}, {pet:1, name:'Vet record', kind:'img'}]
+          : TOKEN==='demo-back' ? [{pet:0, name:'Vet record', kind:'img'}] : []};
+      // made-up photos for the ones "sent" from this page, as if this phone had kept them
+      const sample = (title, color) => { const cv = document.createElement('canvas'); cv.width = 360; cv.height = 480; const x = cv.getContext('2d');
+        x.fillStyle = '#fff'; x.fillRect(0, 0, 360, 480); x.fillStyle = color; x.fillRect(0, 0, 360, 90); x.fillStyle = '#222'; x.font = 'bold 28px serif'; x.fillText(title, 30, 150);
+        x.font = '18px sans-serif'; ['Rabies', 'DHPP', 'Bordetella'].forEach((t, i) => { x.fillText(t, 40, 210 + i*44); x.fillText('Mar 2026', 220, 210 + i*44); }); return cv.toDataURL('image/jpeg', .8); };
+      SENTRECS[TOKEN] = {end:STATUS.end, at:TOKEN==='demo-done' ? {'0-0':sample('Vaccination Record', '#0F766E'), '1-0':sample('Shot Record', '#B45309')}
+        : TOKEN==='demo-sent' ? {'f:biscuit:0':sample('Vet Record', '#7C3AED')}
+        : TOKEN==='demo-back' ? {'0-0':sample('Rabies Certificate', '#1D4ED8')} : {}};
+      refresh = async () => {};
+      sendRecs = async () => { RQ.busy = true; draw();
+        for(const [i, l] of Object.entries(RQ.files)) for(const r of l){ const n = STATUS.docs.filter(d => d.pet===+i && !d.form).length;
+          if(r.kind==='img') await keepSent('requests/demo/'+i+'-'+n+'.jpg', r.blob, STATUS.end);
+          STATUS.docs.push({pet:+i, name:r.name, kind:r.kind}); }
+        RQ.files = {}; RQ.busy = false; RQ.ok = 'Preview: nothing was really sent, but this is how it looks after sending.'; draw(); };
+      draw(); return; }
+    if(!/^[0-9a-f-]{36}$/i.test(TOKEN)){ STATUS = false; draw(); return; }
+    try { await refresh(); } catch(e){ STATUS = false; }
+    draw();
+    // keep it current while it's open (not while they're deciding to cancel)
+    setInterval(async () => { if(document.hidden || CONFIRM || !STATUS || STATUS.status!=='pending') return;
+      try { await refresh(); draw(); } catch(e) {} }, 20000);
+    document.addEventListener('visibilitychange', async () => { if(!document.hidden && STATUS){ try { await refresh(); draw(); } catch(e) {} } });
+    return;
+  }
+  // fill in what they told us last time
+  if(MEM.me){ F.ownFood = !!MEM.me.ownFood; F.name = MEM.me.name || ''; F.phone = MEM.me.phone || ''; F.email = MEM.me.email || '';
+    if(MEM.me.pets && MEM.me.pets.length) F.pets = MEM.me.pets.map(p => ({species:['dog','cat','other'].includes(p.species) ? p.species : 'dog', name:p.name||'', breed:p.breed||'', g:p.g||'A', kind:p.kind||'', cage:p.cage!==false, medsOn:!!p.medsOn, meds:p.meds||'', note:p.note||''})); }
+  // requests sent from this device that are still ahead
+  Promise.all(MEM.reqs.map(x => rpc('request_status', {p_token:x.token}).then(st => st && {...x, status:st.status, names:st.pets.map(p => p.name).join(', ')}).catch(() => null)))
+    .then(list => { MINE = list.filter(x => x && x.end >= ymdOf(new Date()) && x.status!=='cancelled' && x.status!=='deleted' && x.status!=='closed'); draw(); });
+  try { INFO = await rpc('booking_info'); F.month = INFO.today.slice(0,7); petsChanged(); }
+  catch(e){ ERR = navigator.onLine===false ? 'This page couldn’t load because the connection dropped. Please refresh once you’re back online.' : 'Sorry, this page couldn’t load just now. Please refresh in a minute, or call or text us at '+CALL_TEXT+'.'; }
+  draw();
+})();
+</script>
+</body>
+</html>

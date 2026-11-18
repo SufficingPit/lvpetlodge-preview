@@ -1,0 +1,709 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F7F7F5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111418" media="(prefers-color-scheme: dark)">
+<title>Guest Form</title>
+<meta name="description" content="Fill out the guest form for Little Village Pet Lodge online, or print it.">
+<link rel="icon" type="image/png" href="img/icon-192.png">
+<script src="guest-paper.js"></script>
+<style>
+:root{--bg:#F7F7F5;--card:#fff;--ink:#1F2937;--mut:#5B6472;--line:#DDDDD6;--pri:#0F766E;--pri-soft:#E3F2EF;--onp:#fff;--bad:#B91C1C;--warnbg:#FEF3C7;--warnfg:#78350F;--field:#C9CBC3;--off:#E4E4DE;--shadow:0 1px 2px rgba(0,0,0,.06)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111418;--card:#1B2027;--ink:#E5E7EB;--mut:#A3ACB9;--line:#2E353F;--pri:#3BAE9F;--pri-soft:#173A36;--onp:#06201C;--bad:#F87171;--warnbg:#3A2E0B;--warnfg:#FCD34D;--field:#3A424D;--off:#20262E;--shadow:none;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#111418;--card:#1B2027;--ink:#E5E7EB;--mut:#A3ACB9;--line:#2E353F;--pri:#3BAE9F;--pri-soft:#173A36;--onp:#06201C;--bad:#F87171;--warnbg:#3A2E0B;--warnfg:#FCD34D;--field:#3A424D;--off:#20262E;--shadow:none;color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg)}
+body{margin:0;color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+#app{max-width:620px;margin:0 auto;padding:22px 16px 48px}
+.tb{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.tb-home{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:800;line-height:1.1}
+.tb-home img{width:36px;height:36px;border-radius:8px;background:#fff}
+.tb-home small{display:block;font-weight:600;color:var(--mut);font-size:12px}
+.tb-call{min-height:40px;display:inline-flex;align-items:center;padding:0 16px;border-radius:999px;border:1px solid var(--field);color:var(--ink);text-decoration:none;font-weight:600;background:var(--card)}
+@media(min-width:660px){.tb{padding-left:calc(50% - 294px);padding-right:calc(50% - 294px)}}
+h1{font-size:26px;margin:0 0 4px}
+h2{font-size:17px;margin:28px 0 10px}
+h3{font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mut);margin:18px 0 10px}
+p{margin:0 0 10px}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.mut{color:var(--mut);font-size:14px}
+.card{background:var(--card);border-radius:14px;padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.b{min-height:50px;width:100%;padding:0 20px;border:0;border-radius:12px;background:var(--pri);color:var(--onp);font-weight:700;font-size:16px}
+.b:disabled{opacity:.45}
+.b2{min-height:46px;padding:0 16px;border:1px solid var(--field);border-radius:12px;background:var(--card);font-weight:600;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;color:var(--ink)}
+.lk{border:0;background:none;color:var(--pri);font-weight:600;padding:8px 4px;min-height:40px}
+.lk.bad{color:var(--bad)}
+.err{color:var(--bad);font-weight:600;font-size:15px;line-height:1.4;margin:12px 0;padding:11px 13px;border:1.5px solid var(--bad);border-radius:12px;background:color-mix(in srgb, var(--bad) 8%, var(--card))}
+.ok{background:var(--pri-soft);color:var(--ink);border-radius:12px;padding:12px 14px;margin:10px 0}
+.lbl{display:block;font-size:13px;font-weight:600;color:var(--mut);margin:0 0 5px}
+.f{display:block;margin-bottom:12px}
+input,textarea{width:100%;min-height:48px;border:1px solid var(--field);border-radius:10px;padding:0 12px;background:var(--card);font-size:16px}
+textarea{padding:10px 12px;min-height:72px;resize:vertical}
+input:focus,textarea:focus{outline:2px solid var(--pri);outline-offset:-1px;border-color:var(--pri)}
+.two{display:flex;gap:10px}.two>*{flex:1;min-width:0}
+.three{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1.3fr);gap:10px}
+.seg{display:flex;border:1px solid var(--field);border-radius:12px;overflow:hidden;background:var(--card)}
+.seg button{flex:1;min-height:44px;border:0;background:none;font-weight:600;padding:0 6px}
+.seg button+button{border-left:1px solid var(--field)}
+.seg .on{background:var(--pri);color:var(--onp)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.chip{min-height:42px;padding:0 14px;border-radius:999px;border:1px solid var(--field);background:var(--card);font-weight:600;font-size:15px}
+.chip.on{background:var(--pri);border-color:var(--pri);color:var(--onp)}
+.q{margin-bottom:12px}
+.yn{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid var(--line)}
+.yn:first-of-type{border-top:0}
+.yn .seg{flex:0 0 132px}
+.pet{border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px;background:var(--card)}
+.pet>.row b{font-size:18px}
+.med{border:1px solid var(--line);border-radius:12px;padding:12px 12px 2px;margin-bottom:10px}
+.waiver{max-height:260px;overflow:auto;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.5;background:var(--bg)}
+.waiver p{margin:0 0 10px}
+.check{display:flex;gap:12px;align-items:flex-start;padding:12px 0;cursor:pointer}
+.check input{width:24px;height:24px;min-height:0;flex:none;margin:1px 0 0;accent-color:var(--pri)}
+.pad{position:relative;border:1px solid var(--field);border-radius:12px;background:#fff;height:150px;touch-action:none}
+.pad canvas{width:100%;height:100%;display:block;border-radius:12px}
+.pad .hint{position:absolute;left:14px;bottom:30px;right:14px;border-bottom:1.5px solid #9aa0a6;pointer-events:none}
+.pad .hint span{position:absolute;left:0;bottom:4px;color:#9aa0a6;font-size:14px}
+.top-acts{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 4px}
+.top-acts>*{flex:1 1 180px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+#tsbox{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:20;background:var(--card);border-radius:14px;padding:14px;box-shadow:0 6px 30px rgba(0,0,0,.25);max-width:calc(100% - 24px)}
+#paper{display:none}
+.views{display:flex;border:1px solid var(--field);border-radius:12px;overflow:hidden;background:var(--card);margin:16px 0 6px}
+.views button{flex:1;min-height:46px;border:0;background:none;font-weight:700;color:var(--mut)}
+.views button+button{border-left:1px solid var(--field)}
+.views .on{background:var(--pri);color:var(--onp)}
+body.wide #app{max-width:880px}
+.sheetwrap{width:min(100vw,1100px);margin:10px 0 0 calc(50% - min(50vw,550px))}
+.sheets{width:100%}
+body{overflow-x:clip}
+/* on screen the sheet loses its outer print margin so the framed page fills the width */
+.sheets .gp-pg{width:7.4in;height:10.15in;margin:0 auto calc(14px / var(--k,1))}
+.sheets .gp-frame{inset:0;border:0;border-radius:0}
+.petbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 auto 10px;width:7.4in;max-width:100%;padding:calc(10px / var(--k,1)) calc(14px / var(--k,1)) 0}
+.petbar b{font-size:calc(20px / var(--k,1))}
+.petbar .lk{font-size:calc(16px / var(--k,1));min-height:calc(40px / var(--k,1))}
+.petbar .pbtns{display:flex;align-items:center;gap:calc(14px / var(--k,1))}
+.petbar .clr{display:inline-flex;align-items:center;gap:calc(5px / var(--k,1));color:var(--mut);font-weight:500}
+.b.bad{background:var(--bad);color:var(--card)}
+/* vet records box under each pet's page (sizes scaled like the pet bar) */
+.recs{width:calc(7.4in - 28px / var(--k,1));max-width:100%;margin:calc(-4px / var(--k,1)) auto calc(18px / var(--k,1));padding:calc(14px / var(--k,1));border:1px solid var(--line);border-radius:calc(12px / var(--k,1));background:var(--card);font-size:calc(16px / var(--k,1))}
+.recs b{display:block;font-size:calc(17px / var(--k,1))}
+.recs .mut{margin:calc(2px / var(--k,1)) 0 calc(10px / var(--k,1));font-size:calc(14px / var(--k,1))}
+.recs .rec{display:flex;align-items:center;gap:calc(10px / var(--k,1));padding:calc(6px / var(--k,1)) 0;border-top:1px solid var(--line)}
+.recs .rec .rthumb{width:calc(44px / var(--k,1));height:calc(44px / var(--k,1));flex:none;border-radius:calc(8px / var(--k,1));border:1px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:calc(12px / var(--k,1));font-weight:700;color:#5B6472}
+.recs .rec .rthumb img{width:100%;height:100%;object-fit:cover}
+.recs .rec .rname{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.recs .lk{font-size:calc(15px / var(--k,1));min-height:calc(36px / var(--k,1))}
+.recs label.b2{display:flex;align-items:center;justify-content:center;margin-top:calc(8px / var(--k,1));min-height:calc(46px / var(--k,1));font-size:calc(16px / var(--k,1));border-radius:calc(12px / var(--k,1));cursor:pointer}
+.recs .err{margin:calc(8px / var(--k,1)) 0 0;font-size:calc(14px / var(--k,1))}
+.addpet{display:block;width:calc(7.4in - 28px / var(--k,1));max-width:100%;margin:0 auto 18px;min-height:calc(52px / var(--k,1));font-size:calc(17px / var(--k,1));border-radius:calc(12px / var(--k,1))}
+.tov{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center}
+.tsh{background:var(--bg);width:100%;max-width:520px;max-height:92vh;overflow:auto;border-radius:18px 18px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px))}
+@media(min-width:660px){.tov{align-items:center}.tsh{border-radius:18px}}
+body.blank{background:#888}
+body.blank .tb,body.blank #app{display:none}
+body.blank #paper{display:block;padding:20px 0}
+@media print{
+  html,body,body.blank{background:#fff!important}
+  .tb,#app,#tsbox{display:none!important}
+  #paper{display:block!important;padding:0!important}
+}
+</style>
+</head>
+<body>
+<header class="tb"><a class="tb-home" href="./"><img src="img/logo.png" alt="" width="36" height="36"><span>Little Village<small>Pet Lodge</small></span></a><a class="tb-call" href="tel:+13082332652">Call</a></header>
+<div id="app"><p class="mut">Loading…</p></div>
+<div id="paper"></div>
+<div id="tsbox" hidden><p class="mut" style="margin:0 0 8px">One quick check that you’re not a robot:</p><div id="ts"></div></div>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+<script>
+'use strict';
+/* Guest form, online. Fill it out once for each family's pets; it goes to the kennel
+   app (through the request-spot server function, which runs the spam check), where Ashley
+   files it onto the family. "Print or save as PDF" prints the paper form with the answers
+   on it; ?blank shows (and prints) the empty paper form, which is new-form-line-art.pdf. */
+const SUPA_URL = 'https://hmkhdmtededcxsjnlqxz.supabase.co';
+const SEND_URL = SUPA_URL+'/functions/v1/request-spot', SEND_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhta2hkbXRlZGVkY3hzam5scXh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM5NzAzNTIsImV4cCI6MjEwOTU0NjM1Mn0.MAwoo-9B3v6M5GNUkEXQpnnmB-DMY3fgSD6r9RDod10';
+const TURNSTILE_SITE = '0x4AAAAAAF25ETdEUOtMMctP';
+/* Three kinds of form (MODE):
+   - new: the whole form (family page, a page per pet, waiver). The default.
+   - pets: a family we already have, bringing pets we don't: just those pets' pages.
+   - update: the whole form again, filled in from the copy they last sent from this device.
+   ?r=<request token> comes from a stay request's page: the server says which kind is needed
+   (form_needs) and the request's name, phone and pets fill it in. ?update opens an update.
+   Drafts are kept on the device (lvpl-guest; a pets form for request X: lvpl-guest-pets-X), and
+   the last full form sent is kept as lvpl-guest-sent so it can be updated later. */
+const Q = new URLSearchParams(location.search), REQ = /^[0-9a-f-]{36}$/i.test(Q.get('r') || '') ? Q.get('r') : '';
+let MODE = Q.has('update') ? 'update' : 'new', NEED = null;
+let DRAFT = 'lvpl-guest';
+const SENT = 'lvpl-guest-sent';
+const SUPA = {url:'https://hmkhdmtededcxsjnlqxz.supabase.co', key:'sb_publishable_kNXTM6u_Jl95mmgBpJuzhw_bww2lCiB'};
+async function rpc(fn, args = {}){
+  const r = await fetch(SUPA.url+'/rest/v1/rpc/'+fn, {method:'POST', headers:{apikey:SUPA.key, 'Content-Type':'application/json'}, body:JSON.stringify(args)});
+  if(!r.ok) throw new Error('Server said '+r.status);
+  return r.json();
+}
+const load = k => { try { return JSON.parse(localStorage.getItem(k)); } catch(e) { return null; } };
+
+function h(tag, attrs, ...kids){
+  const e = document.createElement(tag);
+  for(const k in attrs||{}){ const v = attrs[k]; if(v==null || v===false) continue;
+    if(k.startsWith('on')) e[k] = v; else if(k==='value') e.value = v; else if(k==='checked') e.checked = !!v; else e.setAttribute(k, v===true ? '' : v); }
+  for(const c of kids.flat(Infinity)){ if(c==null || c===false || c==='') continue; e.append(c.nodeType ? c : document.createTextNode(String(c))); }
+  return e;
+}
+const pad2 = n => String(n).padStart(2,'0');
+const todayYmd = () => { const d = new Date(); return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate()); };
+const fmtPhone = v => { const d = v.replace(/\D/g,'').replace(/^1(?=\d{10}$)/,''); return d.length===10 ? d.slice(0,3)+'-'+d.slice(3,6)+'-'+d.slice(6) : v; };
+const uuid = () => crypto.randomUUID ? crypto.randomUUID() : null;
+
+/* ---------- the answers ---------- */
+const newPet = () => ({species:'dog', other:'', name:'', breed:'', color:'', dob:'', sex:'', fixed:'', conditions:'', meds:[],
+  diet:'', food:'', perDay:'', dietNotes:'', treats:'', treatFav:'', personality:[], alsoKnow:'', along:[], notes:'',
+  jumps:'', bites:'', fights:'', likes:'', dislikes:'', chews:''});
+const blankForm = () => ({owner:{first:'', last:'', email:'', cell:'', main:'', work:'', city:'', state:'NE', zip:'', coName:'', coMain:'', coAlt:'',
+  emName:'', emMain:'', emAlt:'', vet:'', vetPhone:'', pickupBy:''}, pets:[newPet()], agree:false, sign:{name:'', img:'', date:''}, key:uuid()});
+const fromSaved = d => ({...blankForm(), ...d, owner:{...blankForm().owner, ...d.owner}, pets:d.pets.map(p => ({...newPet(), ...p}))});
+// a pet as the request page described it
+const reqPet = p => ({...newPet(), species:['dog','cat','other'].includes(p.species) ? p.species : 'dog', name:p.name || '', breed:p.breed || '', other:p.kind || '',
+  conditions:p.note || '', meds:(p.medsOn || p.meds) && typeof p.meds==='string' && p.meds ? [{name:p.meds, dose:'', freq:'', instr:''}] : []});
+const setName = (O, full) => { const parts = (full || '').trim().split(/\s+/); O.first = parts[0] || ''; O.last = parts.slice(1).join(' '); };
+let F = blankForm(), hadDraft = false, FROMSENT = false;
+/* Vet or shot records (optional), per pet: photos (redrawn as a JPEG up to 2000px) or PDFs, up to
+   3 per pet and 10 MB each. Kept in memory only (too big for the saved draft). Sending the form
+   says which files are coming (data.pets[i].docs = [{name, kind, path}]); the server answers with
+   one-time upload links, and the files go straight to the kennel's private storage. */
+const RECS = new WeakMap(), MAX_RECS = 3;
+const recsOf = p => { if(!RECS.has(p)) RECS.set(p, []); return RECS.get(p); };
+let RECERR = null;   // {pet, msg}
+async function shrinkImage(file, max = 2000){
+  let im;
+  try { im = await createImageBitmap(file); }
+  catch(e){ im = await new Promise((ok, no) => { const x = new Image(); x.onload = () => ok(x); x.onerror = no; x.src = URL.createObjectURL(file); }); }
+  const k = Math.min(1, max / Math.max(im.width, im.height));
+  const cv = document.createElement('canvas'); cv.width = Math.round(im.width*k); cv.height = Math.round(im.height*k);
+  const ctx = cv.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, cv.width, cv.height); ctx.drawImage(im, 0, 0, cv.width, cv.height);
+  return new Promise((ok, no) => cv.toBlob(b => b ? ok(b) : no(new Error('bad image')), 'image/jpeg', .82));
+}
+async function addRecs(p, files){
+  RECERR = null;
+  for(const f of files){
+    const list = recsOf(p);
+    if(list.length >= MAX_RECS){ RECERR = {pet:p, msg:'Up to '+MAX_RECS+' files per pet.'}; break; }
+    const pdf = f.type==='application/pdf' || /\.pdf$/i.test(f.name);
+    if(!pdf && !/^image\//.test(f.type)){ RECERR = {pet:p, msg:'Only photos and PDFs can be added.'}; continue; }
+    let blob = f;
+    if(!pdf){ try { blob = await shrinkImage(f); } catch(e){ RECERR = {pet:p, msg:'Couldn’t read that photo. Try another one.'}; continue; } }
+    if(blob.size > 10e6){ RECERR = {pet:p, msg:'That file is too big (over 10 MB).'}; continue; }
+    const name = 'Vet record';   // they don't name them; the app shows Photo or PDF and the pet
+    list.push({name, kind:pdf ? 'pdf' : 'img', blob, url:pdf ? '' : URL.createObjectURL(blob)});
+  }
+  draw();
+}
+function recsBox(p){
+  const list = recsOf(p), nm = p.name.trim();
+  return h('div',{class:'recs'},
+    h('b',{}, 'Vet or shot records'),
+    h('p',{class:'mut'}, 'Optional. A photo or PDF of '+(nm ? nm+'’s' : 'their')+' vaccine record, so you don’t have to bring it.'),
+    list.map((r, j) => h('div',{class:'rec'}, h('span',{class:'rthumb'}, r.url ? h('img',{src:r.url, alt:''}) : 'PDF'), h('span',{class:'rname'}, r.kind==='pdf' ? 'PDF' : 'Photo'),
+      h('button',{type:'button', class:'lk bad', onclick:()=>{ if(r.url) URL.revokeObjectURL(r.url); list.splice(j, 1); RECERR = null; draw(); }}, 'Remove'))),
+    list.length < MAX_RECS && h('label',{class:'b2'}, list.length ? '+ Add another' : '+ Add photo or PDF',
+      h('input',{type:'file', accept:'image/*,application/pdf', multiple:true, style:'display:none', onchange:e => addRecs(p, [...e.target.files])})),
+    RECERR && RECERR.pet===p && h('p',{class:'err'}, RECERR.msg));
+}
+function startForm(){
+  if(MODE==='pets') DRAFT = 'lvpl-guest-pets-'+REQ;
+  const d = load(DRAFT), sent = load(SENT);
+  hadDraft = !!(d && d.owner && d.pets);
+  if(hadDraft) F = fromSaved(d);
+  else if(MODE==='update' && sent && sent.owner){ F = fromSaved(sent); F.key = uuid(); F.agree = false; F.sign = {name:'', img:'', date:''}; FROMSENT = true; }
+  else if(NEED){   // from a stay request: what they told it
+    setName(F.owner, NEED.name); F.owner.cell = NEED.phone || ''; F.owner.email = NEED.email || '';
+    const pets = (NEED.pets || []).filter(p => MODE!=='pets' || (NEED.newPets || []).some(n => n.toLowerCase()===(p.name || '').trim().toLowerCase()));
+    if(pets.length) F.pets = pets.map(reqPet);
+  } else { try { const m = load('lvpl-mine'), me = m && m.me;   // what they told the request page on this device
+    if(me){ setName(F.owner, me.name); F.owner.cell = me.phone || ''; F.owner.email = me.email || '';
+      if(me.pets && me.pets.length) F.pets = me.pets.map(reqPet); } } catch(e) {} }
+  // opened from a request with a draft or saved copy: fill any blank name, phone or email from the request
+  if(NEED && (hadDraft || FROMSENT)){ const O = F.owner;
+    if(!O.first.trim() && !O.last.trim()) setName(O, NEED.name);
+    if(!O.cell.trim() && !O.main.trim()) O.cell = NEED.phone || '';
+    if(!O.email.trim()) O.email = NEED.email || ''; }
+  // an update from a request: add any pets the request named that the saved copy doesn't have
+  if(MODE==='update' && NEED && (hadDraft || FROMSENT)) (NEED.pets || []).forEach(p => {
+    if(p.name && !F.pets.some(x => x.name.trim().toLowerCase()===p.name.trim().toLowerCase())) F.pets.push(reqPet(p)); });
+  // an update made by hand from the site (no request) still says it's an update
+  if(MODE==='new' && !hadDraft && !NEED && sent && sent.owner){ MODE = 'update'; F = fromSaved(sent); F.key = uuid(); F.agree = false; F.sign = {name:'', img:'', date:''}; FROMSENT = true; }
+}
+let saveT = null;
+const saveDraft = () => { clearTimeout(saveT); saveT = setTimeout(() => { try { localStorage.setItem(DRAFT, JSON.stringify(F)); } catch(e) {} }, 300); };
+let ERR = '', SENDING = false, DONE = false, SIGNING = false, ASK = null;   // ASK: {title, msg, ok, go} for the are-you-sure sheet
+// the paper form is the default on bigger screens; on a phone the simple form is easier to type into
+// The simple (card-by-card) form is switched off for now; simpleView() is kept so it can come back.
+let VIEW = 'paper';
+const setView = v => { VIEW = v; try { localStorage.setItem('lvpl-guest-view', v); } catch(e) {} draw(); scrollTo(0, 0); };
+
+/* ---------- inputs ---------- */
+function tf(obj, k, label, a = {}){
+  return h('label',{class:'f'}, h('span',{class:'lbl'}, label),
+    h(a.area ? 'textarea' : 'input', {value:obj[k] || '', autocomplete:a.ac || 'off', type:a.type || null, inputmode:a.im || null, maxlength:a.max || (a.area ? 500 : 80), placeholder:a.ph || null,
+      oninput:e => { obj[k] = e.target.value; saveDraft(); if(a.live) draw(); },
+      onchange:e => { if(a.phone) e.target.value = obj[k] = fmtPhone(obj[k]); if(a.redraw) draw(); saveDraft(); }}, a.area ? obj[k] || '' : null));
+}
+const seg = (obj, k, opts, after) => h('div',{class:'seg'}, opts.map(([v, l]) => h('button',{type:'button', class:obj[k]===v ? 'on' : '', onclick:()=>{ obj[k] = obj[k]===v ? '' : v; after && after(); saveDraft(); draw(); }}, l)));
+const yn = (obj, k, q) => h('div',{class:'yn'}, h('span',{}, q), seg(obj, k, [['yes','Yes'],['no','No']]));
+function chips(list, opts, one, solo){
+  return h('div',{class:'chips'}, opts.map(([v, l]) => h('button',{type:'button', class:'chip'+(list.includes(v) ? ' on' : ''), onclick:()=>{
+    const i = list.indexOf(v);
+    if(i >= 0) list.splice(i, 1);
+    else if(one) list.splice(0, list.length, v);
+    else { if(v===solo) list.splice(0, list.length); else { const j = list.indexOf(solo); if(j >= 0) list.splice(j, 1); } list.push(v); }
+    saveDraft(); draw(); }}, l)));
+}
+// date of birth: typed as MM/DD/YYYY, kept as YYYY-MM-DD once it's a real date
+function dobField(p){
+  const show = v => { const m = /^(\d{4})-(\d\d)-(\d\d)$/.exec(v || ''); return m ? m[2]+'/'+m[3]+'/'+m[1] : v || ''; };
+  return h('label',{class:'f'}, h('span',{class:'lbl'}, 'Date of birth'),
+    h('input',{value:show(p.dob), inputmode:'numeric', maxlength:10, placeholder:'MM/DD/YYYY', autocomplete:'off',
+      oninput:e => { let d = e.target.value.replace(/\D/g,'').slice(0,8);
+        const v = d.length > 4 ? d.slice(0,2)+'/'+d.slice(2,4)+'/'+d.slice(4) : d.length > 2 ? d.slice(0,2)+'/'+d.slice(2) : d;
+        if(e.inputType!=='deleteContentBackward') e.target.value = v;
+        const m = /^(\d\d)\/(\d\d)\/(\d{4})$/.exec(e.target.value);
+        p.dob = m && +m[1] >= 1 && +m[1] <= 12 && +m[2] >= 1 && +m[2] <= 31 ? m[3]+'-'+m[1]+'-'+m[2] : e.target.value; saveDraft(); }}));
+}
+
+/* ---------- the pet card ---------- */
+const PERS = [['Shy at first','Shy at first'],['Paw-fers privacy','Paw-fers privacy'],['Playful','Playful pup/purrer'],['Cuddlebug','Cuddlebug'],['Love at first lick','Love at first lick']];
+const ALONG = [['Cats','Cats'],['Dogs','Dogs'],['Humans','Humans'],['Everyone','Everyone']];
+function petCard(p, i){
+  const nm = p.name.trim() || 'this pet', many = F.pets.length > 1;
+  return h('div',{class:'pet'},
+    h('div',{class:'row'}, h('b',{}, p.name.trim() || 'Pet '+(i+1)),
+      many && h('button',{type:'button', class:'lk bad', onclick:()=>{ F.pets.splice(i, 1); saveDraft(); draw(); }}, 'Remove')),
+    h('h3',{}, 'Basics'),
+    h('div',{class:'q'}, seg(p, 'species', [['dog','Dog'],['cat','Cat'],['other','Small mammal']])),
+    p.species==='other' && tf(p, 'other', 'What kind?', {ph:'e.g. Rabbit, ferret, guinea pig', max:40}),
+    h('div',{class:'two'}, tf(p, 'name', 'Name', {max:40, redraw:true}), tf(p, 'breed', 'Breed', {max:60})),
+    h('div',{class:'two'}, tf(p, 'color', 'Color', {max:60}), dobField(p)),
+    h('div',{class:'two q'},
+      h('div',{}, h('span',{class:'lbl'}, 'Sex'), seg(p, 'sex', [['m','Male'],['f','Female']])),
+      h('div',{}, h('span',{class:'lbl'}, p.sex==='f' ? 'Spayed' : p.sex==='m' ? 'Neutered' : 'Spayed or neutered'), seg(p, 'fixed', [['yes','Yes'],['no','No']]))),
+
+    h('h3',{}, 'Health'),
+    tf(p, 'conditions', 'Allergies or medical conditions we should know about', {area:true}),
+    h('span',{class:'lbl'}, 'Medications'),
+    p.meds.map((m, j) => h('div',{class:'med'},
+      h('div',{class:'row', style:'margin:-4px 0 4px'}, h('b',{style:'font-size:15px'}, 'Medication '+(j+1)), h('button',{type:'button', class:'lk bad', onclick:()=>{ p.meds.splice(j, 1); saveDraft(); draw(); }}, 'Remove')),
+      h('div',{class:'two'}, tf(m, 'name', 'Name', {max:80}), tf(m, 'dose', 'Dosage', {max:60, ph:'e.g. 16 mg'})),
+      tf(m, 'freq', 'How often', {max:80, ph:'e.g. Twice a day'}),
+      tf(m, 'instr', 'Dosing instructions', {max:200, ph:'e.g. With food, wrapped in cheese'}))),
+    p.meds.length < 4 && h('button',{type:'button', class:'b2', style:'width:100%;margin-bottom:6px', onclick:()=>{ p.meds.push({name:'', dose:'', freq:'', instr:''}); saveDraft(); draw(); }}, p.meds.length ? '+ Another medication' : '+ Add a medication'),
+
+    h('h3',{}, 'Diet'),
+    tf(p, 'diet', 'Describe '+nm+'’s diet', {area:true, max:300}),
+    h('div',{class:'two'}, tf(p, 'food', 'Food or brand', {max:100}), tf(p, 'perDay', 'Times per day', {max:20, im:'numeric'})),
+    tf(p, 'dietNotes', 'Any special instructions', {area:true, max:300}),
+    h('span',{class:'lbl'}, 'What about treats?'),
+    h('div',{class:'q'}, seg(p, 'treats', [['yes','Yes, please'],['no','No, on a diet']])),
+    p.treats==='yes' && tf(p, 'treatFav', 'Especially loves', {max:100}),
+
+    h('h3',{}, 'Personality'),
+    h('span',{class:'lbl'}, 'Paw-sonality can be summed up as'),
+    chips(p.personality, PERS, true),
+    tf(p, 'alsoKnow', 'You should also know', {max:200}),
+    h('span',{class:'lbl'}, 'Gets along with'),
+    chips(p.along, ALONG, false, 'Everyone'),
+    tf(p, 'notes', 'Other things we should know about '+nm, {area:true, max:400}),
+    h('div',{class:'two'}, tf(p, 'likes', 'Likes', {max:120}), tf(p, 'dislikes', 'Dislikes', {max:120})),
+    h('div',{style:'margin-top:4px'},
+      yn(p, 'jumps', 'Can jump fences'),
+      yn(p, 'bites', 'Has been known to bite'),
+      yn(p, 'fights', 'Has been known to start a fight'),
+      yn(p, 'chews', 'Eats or chews up beds')),
+    p.chews==='yes' && h('p',{class:'mut', style:'margin:6px 0 0'}, 'If a bed we provide gets chewed up, there’s a $10 charge to help replace it.'));
+}
+
+/* ---------- signature pad ---------- */
+let PAD = null;
+// The signature is kept small: drawn at screen size (not the phone's 2-3x pixels), at most 360 wide,
+// in solid ink only. A full-size phone signature alone can go over the 60 KB form limit.
+function shrinkSig(src){
+  return new Promise(res => {
+    if(!src) return res('');
+    const im = new Image();
+    im.onload = () => {
+      const w = Math.min(360, im.width), hgt = Math.max(1, Math.round(im.height * w / im.width));
+      const c = document.createElement('canvas'); c.width = w; c.height = hgt;
+      const x = c.getContext('2d'); x.drawImage(im, 0, 0, w, hgt);
+      const d = x.getImageData(0, 0, w, hgt), a = d.data;
+      for(let i = 0; i < a.length; i += 4){ const al = a[i+3] < 90 ? 0 : 255;
+        a[i] = 29; a[i+1] = 60; a[i+2] = 140; a[i+3] = al; }
+      x.putImageData(d, 0, 0); res(c.toDataURL('image/png'));
+    };
+    im.onerror = () => res(src); im.src = src;
+  });
+}
+function sigPad(){
+  const c = h('canvas',{'aria-label':'Signature'}), wrap = h('div',{class:'pad'}, c, !F.sign.img && h('div',{class:'hint'}, h('span',{}, 'Sign here')));
+  let ctx, drawing = false, last = null, dirty = false;
+  const fit = () => { const r = c.getBoundingClientRect(), k = devicePixelRatio || 1; c.width = r.width*k; c.height = r.height*k; ctx = c.getContext('2d'); ctx.scale(k, k);
+    ctx.lineWidth = 2.2; ctx.lineCap = ctx.lineJoin = 'round'; ctx.strokeStyle = '#1d3c8c';
+    if(F.sign.img){ const im = new Image(); im.onload = () => ctx.drawImage(im, 0, 0, r.width, r.height); im.src = F.sign.img; } };
+  const pt = e => { const r = c.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+  c.onpointerdown = e => { c.setPointerCapture(e.pointerId); drawing = true; last = pt(e); wrap.querySelector('.hint')?.remove(); ctx.beginPath(); ctx.arc(last[0], last[1], 1.1, 0, 7); ctx.fillStyle = '#1d3c8c'; ctx.fill(); dirty = true; };
+  c.onpointermove = e => { if(!drawing) return; const p = pt(e); ctx.beginPath(); ctx.moveTo(...last); ctx.lineTo(...p); ctx.stroke(); last = p; dirty = true; };
+  c.onpointerup = c.onpointercancel = () => { if(!drawing) return; drawing = false;
+    if(dirty){ const first = !F.sign.img; shrinkSig(c.toDataURL('image/png')).then(v => { F.sign.img = v; saveDraft(); if(first) draw(); }); } };
+  requestAnimationFrame(fit);
+  PAD = {clear(){ F.sign.img = ''; saveDraft(); draw(); }};
+  return wrap;
+}
+
+/* ---------- the page ---------- */
+const WAIVER = [
+  'Little Village Pet Lodge cares about every pet! We will do everything possible to make their stay with us a happy, safe, and well cared for time. Pet owner specifically represents to kennel that pet has not been exposed to any contagious diseases within the last 30 days and that all vaccinations are up to date. It is understood that any animal found to be harboring any type of external parasite will be treated accordingly at the expense of the pet owner.',
+  'Pet owner agrees to pay rate for boarding in effect on the date pet is checked into kennel plus any extra fees incurred. Pet owner further agrees to pay all costs and charges for our services before pet is released. ANY ANIMAL LEFT FOR 10 DAYS AFTER SCHEDULED PICK UP DATE, WITHOUT NOTIFICATION TO KENNEL, IS DEEMED ABANDONED AND WILL BE SUBJECT TO DISPOSAL AT LITTLE VILLAGE PET LODGE’S DISCRETION.',
+  'Little Village Pet Lodge will exercise reasonable care for all pets. If the occasion should arise that pet becomes ill, or the state of animal’s health otherwise requires professional attention, Kennel will contact Beebout Veterinary Medical Center, 1625 Burlington St, Holdrege, NE 68949, (308) 995-2419. All fees for emergency call to Beebout Veterinary will be paid by Pet Owner before pet’s release.',
+  'Liability of kennel shall in no event exceed the lesser of the current value of a pet of same species, or the sum of $300 per pet while it is in the care of the kennel. Furthermore, Little Village Pet Lodge is NOT responsible if there is an unfortunate event or death of pet after all attempts are made to keep your pet safe and healthy. We are dedicated to ensuring you with Peace of Mind, Educated with Knowledge, and have our Hearts filled with love for all Furbabies!',
+  'If your pet is scheduled for a pick up or drop off by our kennel vehicle, kennel/driver shall not be held responsible for vehicle accidents, injuries, natural disasters, or death. Pet owner further agrees to be solely responsible for any and all acts or behavior of said pet while it is in the care of the kennel.',
+  'Note pick up and drop off times! Extra charge of $10.00 if necessary.'];
+
+const petNamesText = list => { const n = list.map(p => (p.name || '').trim()).filter(Boolean); return n.length > 1 ? n.slice(0, -1).join(', ')+' and '+n[n.length-1] : n[0] || 'your new pet'; };
+function formView(){
+  const intro = MODE==='pets' ? [h('h1',{}, 'A page for '+petNamesText(F.pets)),
+      h('p',{class:'mut'}, 'We have your family on file, but not '+petNamesText(F.pets)+' yet. Fill out their page and send it to us.')]
+    : MODE==='update' ? [h('h1',{}, 'Update your guest form'),
+      h('p',{class:'mut'}, NEED && NEED.newPhone ? 'Your phone number is new to us, so please check your details: change anything that’s different, then sign and send it.'
+        : NEED && NEED.update ? 'We’d like to make sure we have your latest details. Look it over, change anything that’s different, then sign and send it.'
+        : FROMSENT ? 'Here’s the form you sent us. Change anything that’s different, then sign and send it.'
+        : 'Fill it in with your current details, then sign and send it. It replaces what we have on file.')]
+    : [h('h1',{}, 'Guest form'),
+      h('p',{class:'mut'}, 'Fill this out once for your pets and send it to us, so it’s all ready at drop-off.')];
+  return [...intro,
+    REQ && h('p',{class:'mut', style:'font-size:13px'}, MODE==='new' ? 'Rather do it on paper? That’s fine: skip this and bring it filled out at drop-off. '
+      : 'Rather do it on paper? That’s fine: skip this and bring it filled out at drop-off. ', h('a',{href:'book.html?r='+REQ}, 'Back to your request')),
+    h('p',{class:'mut', style:'font-size:13px'}, 'Tap a line to write on it and a box to tick it.'),
+    VIEW==='paper' ? paperView() : simpleView(),
+    ERR && h('div',{class:'err', id:'err'}, ERR),
+    h('button',{class:'b', style:'margin-top:16px', disabled:SENDING || null, onclick:send}, SENDING ? 'Sending…' : 'Send to Little Village'),
+    h('button',{type:'button', class:'b2', style:'width:100%;margin-top:10px', onclick:printIt}, 'Print or save as PDF'),
+    h('p',{class:'mut', style:'margin-top:12px;font-size:13px'}, 'Prefer paper? Print it filled in, or leave it empty for a blank one. Add pets first to get a page for each.'),
+    h('p',{class:'mut', style:'font-size:13px'}, 'Your answers are saved on this device, so you can come back and finish later.'),
+    h('button',{type:'button', class:'lk bad', style:'margin-top:4px', onclick:()=>ask('Clear the whole form?', 'Every answer, every pet and the signature are erased. This can’t be undone.', 'Clear form', clearAll)}, 'Clear form'),
+    SIGNING && signSheet(),
+    ASK && askSheet()];
+}
+function simpleView(){
+  const O = F.owner;
+  return [
+    h('h2',{}, '1. About you'),
+    h('div',{class:'card'},
+      h('div',{class:'two'}, tf(O, 'first', 'First name', {ac:'given-name', max:40}), tf(O, 'last', 'Last name', {ac:'family-name', max:40})),
+      h('div',{class:'two'}, tf(O, 'cell', 'Cell phone', {type:'tel', im:'tel', ac:'tel', phone:true, max:20}), tf(O, 'main', 'Main phone (optional)', {type:'tel', im:'tel', phone:true, max:20})),
+      h('div',{class:'two'}, tf(O, 'work', 'Work phone (optional)', {type:'tel', im:'tel', phone:true, max:20}), tf(O, 'email', 'Email', {type:'email', im:'email', ac:'email', max:120})),
+      h('div',{class:'three'}, tf(O, 'city', 'City', {ac:'address-level2', max:60}), tf(O, 'state', 'State', {ac:'address-level1', max:20}), tf(O, 'zip', 'ZIP', {ac:'postal-code', im:'numeric', max:10}))),
+
+    h('h2',{}, '2. Other contacts'),
+    h('div',{class:'card'},
+      tf(O, 'coName', 'Spouse or co-owner (optional)', {max:80}),
+      O.coName.trim() && h('div',{class:'two'}, tf(O, 'coMain', 'Their main phone', {type:'tel', im:'tel', phone:true, max:20}), tf(O, 'coAlt', 'Alt. phone', {type:'tel', im:'tel', phone:true, max:20})),
+      tf(O, 'emName', 'Emergency contact', {max:80, redraw:true}),
+      h('div',{class:'two'}, tf(O, 'emMain', 'Their main phone', {type:'tel', im:'tel', phone:true, max:20}), tf(O, 'emAlt', 'Alt. phone', {type:'tel', im:'tel', phone:true, max:20})),
+      h('div',{class:'two'}, tf(O, 'vet', 'Veterinarian', {max:80}), tf(O, 'vetPhone', 'Vet’s phone', {type:'tel', im:'tel', phone:true, max:20})),
+      tf(O, 'pickupBy', 'Who else may pick up your pets? (optional)', {max:120, ph:'Names'})),
+
+    h('h2',{}, '3. Your pets'),
+    F.pets.map(petCard),
+    F.pets.length < 8 && h('button',{type:'button', class:'b2', style:'width:100%', onclick:()=>{ F.pets.push(newPet()); saveDraft(); draw(); }}, '+ Add another pet'),
+
+    h('h2',{}, '4. Waiver'),
+    h('div',{class:'card'},
+      h('b',{}, 'Consent for Medical Care and Legal Waiver'),
+      h('div',{class:'waiver', style:'margin-top:8px'}, WAIVER.map(t => h('p',{}, t))),
+      h('label',{class:'check'}, h('input',{type:'checkbox', checked:F.agree, onchange:e=>{ F.agree = e.target.checked; saveDraft(); }}),
+        h('span',{}, 'I acknowledge that the above information is correct and that I have read the above contract and agree as owner or representative of the animal to the foregoing terms.')),
+      tf(F.sign, 'name', 'Type your full name', {ac:'name', max:80}),
+      h('div',{class:'row', style:'margin-bottom:5px'}, h('span',{class:'lbl', style:'margin:0'}, 'Sign with your finger or mouse'),
+        F.sign.img && h('button',{type:'button', class:'lk', style:'min-height:28px;padding:0 4px', onclick:()=>PAD.clear()}, 'Clear')),
+      sigPad())];
+}
+
+/* ---------- the paper form, filled in right on the page ---------- */
+const getK = (o, k) => k.split('.').reduce((a, x) => a == null ? undefined : a[x], o);
+function setK(o, k, v){
+  const ks = k.split('.'); let a = o;
+  ks.slice(0, -1).forEach((x, i) => {
+    if(a[x] == null){ const next = ks[i+1]; a[x] = /^\d+$/.test(next) ? [] : {}; }
+    // a medicine slot on the paper that's further down than the list: fill the gap
+    if(Array.isArray(a[x]) && /^\d+$/.test(ks[i+1])) while(a[x].length <= +ks[i+1]) a[x].push(x==='meds' ? {name:'', dose:'', freq:'', instr:''} : {});
+    a = a[x];
+  });
+  a[ks[ks.length-1]] = v;
+}
+function tickBox(b){
+  const k = b.dataset.k, v = b.dataset.v, t = b.dataset.t;
+  if(t==='bool') setK(F, k, !getK(F, k));
+  else if(t==='one') setK(F, k, getK(F, k)===v ? '' : v);
+  else if(t==='fixed'){ const pet = getK(F, k.replace(/\.fixed$/, ''));
+    if(pet.sex===v && pet.fixed==='yes') pet.fixed = ''; else { pet.sex = v; pet.fixed = 'yes'; } }
+  else { const list = getK(F, k) || []; setK(F, k, list);
+    const i = list.indexOf(v);
+    if(i >= 0) list.splice(i, 1);
+    else if(t==='pick') list.splice(0, list.length, v);
+    else { if(v==='Everyone') list.splice(0, list.length); else { const j = list.indexOf('Everyone'); if(j >= 0) list.splice(j, 1); } list.push(v); } }
+  saveDraft(); draw();
+}
+function paperView(){
+  addPaperStyles();
+  const sheets = h('div',{class:'sheets'}), wrap = h('div',{class:'sheetwrap'}, sheets);
+  sheets.innerHTML = guestPaper(paperData(), '', {edit:true, petsOnly:MODE==='pets'});
+  // a bar above each page: what it is, and a button to clear just that page
+  const fam = sheets.querySelector('.gp-fam'), wv = sheets.querySelector('.gp-waiver');
+  fam && fam.before(h('div',{class:'petbar'}, h('b',{}, 'Your family'), clearBtn('Clear the family page?', 'Your name, contacts, vet and pick-up answers are erased.', clearFamily)));
+  wv && wv.before(h('div',{class:'petbar'}, h('b',{}, 'Waiver'), clearBtn('Clear the waiver?', 'The tick, signature and printed name are erased.', clearWaiver)));
+  // a name, Clear and Remove above each pet's page, and room for another pet after the last
+  sheets.querySelectorAll('.gp-petpages').forEach((pp, i) => {
+    const p = F.pets[i], nm = p.name.trim();
+    pp.prepend(h('div',{class:'petbar'}, h('b',{}, F.pets.length > 1 ? 'Pet '+(i+1)+(nm ? ': '+nm : '') : (nm || 'Your pet')),
+      h('span',{class:'pbtns'},
+        clearBtn('Clear '+(nm ? nm+'’s' : 'this pet’s')+' page?', 'Every answer on this pet’s page is erased.', () => { F.pets[i] = newPet(); }),
+        F.pets.length > 1 && h('button',{type:'button', class:'lk bad', onclick:()=>ask('Remove '+(nm || 'this pet')+'?', 'This pet’s page and its answers are taken off the form.', 'Remove', () => { F.pets.splice(i, 1); })}, 'Remove pet'))));
+    pp.append(recsBox(p));
+    if(i===F.pets.length-1 && F.pets.length < 8) pp.after(h('button',{type:'button', class:'b2 addpet', onclick:()=>{ F.pets.push(newPet()); saveDraft(); draw(); }}, '+ Add another pet'));
+  });
+  sheets.oninput = e => {
+    const el = e.target, k = el.dataset && el.dataset.k; if(!k) return;
+    let v = el.value;
+    if(el.dataset.f==='date'){
+      let d = v.replace(/\D/g,'').slice(0,8);
+      const shown = d.length > 4 ? d.slice(0,2)+'/'+d.slice(2,4)+'/'+d.slice(4) : d.length > 2 ? d.slice(0,2)+'/'+d.slice(2) : d;
+      if(e.inputType!=='deleteContentBackward') el.value = v = shown;
+      const m = /^(\d\d)\/(\d\d)\/(\d{4})$/.exec(v);
+      v = m && +m[1] >= 1 && +m[1] <= 12 && +m[2] >= 1 && +m[2] <= 31 ? m[3]+'-'+m[1]+'-'+m[2] : v;
+    }
+    setK(F, k, v);
+    // the owner's details are on every pet's first page: keep them all the same
+    sheets.querySelectorAll('[data-k="'+k+'"]').forEach(x => { if(x!==el) x.value = el.value; });
+    saveDraft();
+  };
+  sheets.onchange = e => { const el = e.target;
+    if(el.dataset && el.dataset.f==='tel'){ const v = fmtPhone(el.value); setK(F, el.dataset.k, v); sheets.querySelectorAll('[data-k="'+el.dataset.k+'"]').forEach(x => x.value = v); saveDraft(); }
+    if(el.dataset && /\.name$/.test(el.dataset.k || '') && /^pets\.\d+\.name$/.test(el.dataset.k)) draw(); };
+  sheets.onclick = e => {
+    const b = e.target.closest('.gp-cb'); if(b){ tickBox(b); return; }
+    if(e.target.closest('[data-sign]')){ SIGNING = true; draw(); }
+  };
+  // fit the 8.5-inch pages to the screen
+  // zoom the 8.5-inch pages to the width there is, whenever that changes
+  let lastW = 0;
+  const fit = () => { if(!wrap.isConnected || !wrap.clientWidth) return;
+    if(wrap.clientWidth!==lastW){ lastW = wrap.clientWidth; const k = lastW / (7.4*96); sheets.style.zoom = k; sheets.style.setProperty('--k', k); }
+    guestPaperFit(sheets); };
+  if(window.ResizeObserver) new ResizeObserver(fit).observe(wrap);
+  setTimeout(fit, 0); document.fonts.ready.then(fit);
+  return wrap;
+}
+// a small trash-can button that clears one page, after an are-you-sure
+const TRASH = '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v6M14 11v6"/></svg>';
+function clearBtn(title, msg, go){
+  const b = h('button',{type:'button', class:'lk bad clr', onclick:()=>ask(title, msg+' This can’t be undone.', 'Clear', go)});
+  b.innerHTML = TRASH+'<span>Clear page</span>'; return b;
+}
+function ask(title, msg, ok, go){ ASK = {title, msg, ok, go}; draw(); }
+function askSheet(){
+  const close = () => { ASK = null; draw(); };
+  return h('div',{class:'tov', onclick:e=>{ if(e.target===e.currentTarget) close(); }},
+    h('div',{class:'tsh', role:'alertdialog', 'aria-label':ASK.title},
+      h('b',{style:'font-size:18px;display:block;margin-bottom:6px'}, ASK.title),
+      h('p',{class:'mut', style:'margin:0 0 14px'}, ASK.msg),
+      h('button',{type:'button', class:'b bad', onclick:()=>{ const go = ASK.go; ASK = null; go(); saveDraft(); draw(); }}, ASK.ok),
+      h('button',{type:'button', class:'b2', style:'width:100%;margin-top:8px', onclick:close}, 'Cancel')));
+}
+const blankOwner = () => ({first:'', last:'', email:'', cell:'', main:'', work:'', city:'', state:'NE', zip:'', coName:'', coMain:'', coAlt:'',
+  emName:'', emMain:'', emAlt:'', vet:'', vetPhone:'', pickupBy:''});
+function clearFamily(){ F.owner = blankOwner(); }
+function clearWaiver(){ F.agree = false; F.sign = {name:'', img:'', date:''}; }
+function clearAll(){ clearFamily(); clearWaiver(); F.pets = [newPet()]; F.key = uuid(); ERR = ''; scrollTo(0, 0); }
+
+function signSheet(){
+  const close = () => { SIGNING = false; draw(); };
+  return h('div',{class:'tov', onclick:e=>{ if(e.target===e.currentTarget) close(); }},
+    h('div',{class:'tsh', role:'dialog', 'aria-label':'Sign the waiver'},
+      h('div',{class:'row', style:'margin-bottom:6px'}, h('b',{style:'font-size:18px'}, 'Sign the waiver'), h('button',{type:'button', class:'lk', onclick:close}, 'Close')),
+      h('div',{class:'row', style:'margin-bottom:5px'}, h('span',{class:'lbl', style:'margin:0'}, 'Sign with your finger or mouse'),
+        F.sign.img && h('button',{type:'button', class:'lk', style:'min-height:28px;padding:0 4px', onclick:()=>PAD.clear()}, 'Clear')),
+      sigPad(),
+      h('div',{style:'margin-top:12px'}, tf(F.sign, 'name', 'Printed name', {ac:'name', max:80})),
+      h('button',{type:'button', class:'b', onclick:close}, 'Done')));
+}
+
+function doneView(){
+  return [h('h1',{}, MODE==='pets' ? 'Pet page sent' : MODE==='update' ? 'Form updated' : 'Form sent'),
+    h('div',{class:'ok'}, h('b',{}, 'Thanks, '+F.owner.first.trim()+'! '+(MODE==='pets' ? 'We got '+petNamesText(F.pets)+'’s page.' : MODE==='update' ? 'We got your updated guest form.'
+      : 'We got your guest form'+(F.pets.length ? ' for '+petNamesText(F.pets) : '')+'.'))),
+    UPS && (UPS.busy ? h('p',{class:'mut'}, 'Sending your vet records…')
+      : UPS.failed ? h('div',{class:'err'}, (UPS.failed===1 ? 'One file' : UPS.failed+' files')+' didn’t go through. Your form is in. ',
+          h('button',{type:'button', class:'lk', style:'padding:0;min-height:0', onclick:uploadRecs}, 'Try again'), ' or bring the record at drop-off.')
+      : h('p',{}, 'Your vet records came through too.')),
+    h('p',{}, 'You don’t need to bring a paper copy. If anything changes later, you can update it from our site, or just tell us at drop-off.'),
+    // from a request: back to it; otherwise home, with booking a stay as the plain next step
+    REQ ? h('a',{class:'b', href:'book.html?r='+REQ, style:'display:flex;align-items:center;justify-content:center;text-decoration:none'}, 'Back to your request')
+      : h('a',{class:'b', href:'./', style:'display:flex;align-items:center;justify-content:center;text-decoration:none'}, 'Back to our site'),
+    h('button',{type:'button', class:'b2', style:'width:100%;margin-top:10px', onclick:printIt}, 'Print or save a copy'),
+    !REQ && h('p',{style:'margin-top:14px'}, 'Ready to book? ', h('a',{href:'book.html'}, 'Request a stay'), '.')];
+}
+
+function draw(){
+  document.body.classList.toggle('wide', !DONE && VIEW==='paper');
+  const app = document.getElementById('app');
+  const y = scrollY, a = document.activeElement, all = () => [...app.querySelectorAll('input,textarea')], fi = a ? all().indexOf(a) : -1;
+  app.replaceChildren(...[DONE ? doneView() : formView()].flat(Infinity).filter(Boolean));
+  if(fi >= 0) all()[fi]?.focus({preventScroll:true});
+  scrollTo(0, y);
+}
+
+/* ---------- print ---------- */
+let fontsAdded = false;
+function addPaperStyles(){
+  if(fontsAdded) return; fontsAdded = true;
+  document.head.append(h('link',{rel:'stylesheet', href:GUEST_FONTS}), h('style',{}, guestPaperCSS));
+}
+function paperData(){
+  const empty = {owner:{...blankOwner(), state:''}, pets:F.pets.map(newPet), agree:false, sign:{name:'', img:'', date:''}};
+  const used = JSON.stringify({owner:{...F.owner, state:''}, pets:F.pets, agree:F.agree, sign:F.sign}) !== JSON.stringify(empty);
+  const d = F.sign.date || (used ? todayYmd() : '');   // a form left empty prints blank, date and all
+  return {...F, date:d, sign:{...F.sign, date:d}}; }
+async function printIt(){
+  addPaperStyles();
+  const paper = document.getElementById('paper');
+  paper.innerHTML = guestPaper(paperData(), '', {petsOnly:MODE==='pets'});
+  await document.fonts.ready.catch(() => {});
+  paper.style.cssText = 'display:block;position:absolute;left:-10000px;top:0'; guestPaperFit(paper); paper.style.cssText = '';
+  await Promise.all([...paper.querySelectorAll('img')].map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; })));
+  window.print();
+}
+
+/* ---------- send ---------- */
+let tsId = null, tsWait = null;
+function humanCheck(){
+  return new Promise((ok, no) => {
+    if(!window.turnstile) return no(new Error('The human check didn’t load. Check your connection and refresh.'));
+    const box = document.getElementById('tsbox');
+    tsWait = {ok, no};
+    if(tsId===null) tsId = turnstile.render('#ts', {sitekey:TURNSTILE_SITE, execution:'execute', appearance:'interaction-only',
+      'before-interactive-callback':()=>{ box.hidden = false; },
+      callback:t=>{ box.hidden = true; tsWait && tsWait.ok(t); tsWait = null; },
+      'error-callback':()=>{ box.hidden = true; tsWait && tsWait.no(new Error('The human check didn’t work. Please try again.')); tsWait = null; }});
+    else turnstile.reset(tsId);
+    turnstile.execute(tsId);
+  });
+}
+function problem(){
+  const O = F.owner, ph = d => d.replace(/\D/g,'').replace(/^1(?=\d{10}$)/,'').length===10;
+  if(!O.first.trim() || !O.last.trim()) return 'Enter your first and last name at the top of the first page.';
+  if(!ph(O.cell) && !ph(O.main)) return 'Enter a phone number with area code on the first page.';
+  const n = F.pets.findIndex(p => !p.name.trim() || (p.species==='other' && !p.other.trim()));
+  if(n >= 0) return 'Enter a name for each pet (and what kind, for a small mammal) at the top of their page.';
+  const P = VIEW==='paper';
+  if(MODE==='pets') return '';
+  if(!F.agree) return P ? 'Tick the box by “I hereby acknowledge” on the last page.' : 'Check the box to agree to the waiver.';
+  if(!F.sign.img) return P ? 'Sign on the SIGN line on the last page.' : 'Sign the waiver in the box.';
+  if(F.sign.name.trim().length < 2) return P ? 'Print your name under your signature on the last page.' : 'Type your full name under the waiver.';
+  return '';
+}
+
+/* ---------- error messages people can understand ----------
+   Messages about something they can fix (a missing name, no open spots...) are shown as the
+   server sent them. Anything technical becomes a plain, kind message: it didn't go through,
+   their answers are still here, try again, or call or text us. */
+const FIXABLE = /^(Pick your dates|Enter your name|Enter a phone|Pick drop-off|Add your pets|Check your pets|Say what kind|Pick dog, cat|A dog and a cat|Not enough open spots|You already have a request|We\u2019re getting a lot|Sign the form|Online requests aren\u2019t set up)/;
+const CALL_TEXT = '(308) 233-2652';
+const oops = what => 'Sorry, something went wrong on our side and your '+what+' didn\u2019t go through. Your answers are still here, so please try again in a minute. If it keeps happening, call or text us at '+CALL_TEXT+'.';
+const offline = what => 'Your '+what+' didn\u2019t go through because the connection dropped. Your answers are still here, so try again once you\u2019re back online.';
+const ROBOT_LOAD = 'The quick \u201cI\u2019m not a robot\u201d check didn\u2019t load. Please refresh the page and try again.';
+const ROBOT_FAIL = 'The quick \u201cI\u2019m not a robot\u201d check didn\u2019t go through. Please try sending again.';
+// a reply from the server that wasn't ok
+const reasonText = (r, what) => !r ? oops(what) : /human check/i.test(r) ? ROBOT_FAIL : FIXABLE.test(r) ? r : oops(what);
+// something that threw on the way (no connection, robot check, a bad reply)
+const thrownText = (e, what) => /didn.t load/.test(e && e.message || '') ? ROBOT_LOAD : /human check/i.test(e && e.message || '') ? ROBOT_FAIL
+  : (navigator.onLine===false || e instanceof TypeError) ? offline(what) : oops(what);
+// after the form is in: send each record to its one-time upload link (a file already there counts as sent)
+let UPS = null, REQEND = null;
+// a photo sent with a form opened from a request page: keep a small copy on this phone, so the request
+// page can show it next to "Sent with your guest form" (same store and rules as the request page, book.html)
+async function keepForReq(u){
+  if(!REQ || !REQEND || u.kind!=='img') return;
+  const m = /\/\d+-(\d+)\.jpg$/.exec(u.path || ''); if(!m) return;
+  try {
+    const small = await shrinkImage(u.blob, 480), url = await new Promise((ok, no) => { const fr = new FileReader(); fr.onload = () => ok(fr.result); fr.onerror = no; fr.readAsDataURL(small); });
+    const all = JSON.parse(localStorage.getItem('lvpl-sent-recs')) || {}, e = all[REQ] ||= {end:REQEND, at:{}};
+    e.end = REQEND; e.at['f:'+u.pet.toLowerCase()+':'+m[1]] = url;
+    localStorage.setItem('lvpl-sent-recs', JSON.stringify(all));
+  } catch(e) {}
+}
+async function uploadRecs(){
+  UPS.busy = true; UPS.failed = 0; draw();
+  for(const u of UPS.list){
+    if(u.sent) continue;
+    const link = UPS.links.find(x => x.path===u.path);
+    try {
+      if(!link) throw new Error('no link');
+      const res = await fetch(link.url, {method:'PUT', headers:{'Content-Type':u.kind==='pdf' ? 'application/pdf' : 'image/jpeg', 'x-upsert':'false'}, body:u.blob});
+      if(!res.ok){ const t = await res.text().catch(() => ''); if(!(res.status===409 || /duplicate|already exists/i.test(t))) throw new Error(t); }
+      u.sent = true;
+      await keepForReq(u);
+    } catch(e){ UPS.failed++; }
+  }
+  UPS.busy = false; draw();
+}
+async function send(){
+  ERR = problem();
+  if(ERR){ draw(); document.getElementById('err')?.scrollIntoView({block:'center'}); return; }
+  SENDING = true; draw();
+  try {
+    if(F.sign.img && F.sign.img.length > 30000) F.sign.img = await shrinkSig(F.sign.img);   // drafts saved before signatures were kept small
+    const token = await humanCheck();
+    F.sign.date = todayYmd();
+    const ups = [];   // files to upload once the form is in: {blob, kind, path}
+    const data = {...paperData(), key:undefined, agree:MODE!=='pets', mode:MODE,
+      pets:F.pets.map((p, i) => ({...p, meds:(p.meds || []).filter(m => [m.name, m.dose, m.freq, m.instr].some(x => (x || '').trim())),
+        docs:F.key && recsOf(p).length ? recsOf(p).map((r, j) => { const path = 'forms/'+F.key+'/'+i+'-'+j+(r.kind==='pdf' ? '.pdf' : '.jpg');
+          ups.push({blob:r.blob, kind:r.kind, path, pet:p.name.trim()}); return {name:r.name, kind:r.kind, path}; }) : undefined}))};
+    if(JSON.stringify({key:F.key, data}).length > 59000){
+      SENDING = false; ERR = 'Sorry, your form came out too large to send, which shouldn’t happen. Your answers are still here. Please try signing again, and if it still won’t send, call or text us at '+CALL_TEXT+'.'; draw(); return; }
+    const res = await fetch(SEND_URL, {method:'POST', headers:{apikey:SEND_KEY, Authorization:'Bearer '+SEND_KEY, 'Content-Type':'application/json'},
+      body:JSON.stringify({token, kind:'form', p:{key:F.key, data, req:REQ || undefined}})});
+    // (the server takes forms up to 60 KB; a typical one with a signature is well under 20 KB)
+    const r = await res.json().catch(() => ({ok:false}));
+    if(r.ok){ DONE = true; UPS = ups.length ? {list:ups, links:r.uploads || [], failed:0, busy:true} : null;
+      // keep what they sent (without the signature) so it can be updated later; a pets form adds its pets
+      try { const sent = load(SENT), keep = {...F, agree:false, sign:{name:F.sign.name, img:'', date:''}};
+        localStorage.setItem(SENT, JSON.stringify(MODE==='pets' && sent && sent.owner
+          ? {...sent, pets:[...sent.pets.filter(p => !F.pets.some(x => x.name.trim().toLowerCase()===(p.name || '').trim().toLowerCase())), ...F.pets]}
+          : MODE==='pets' ? null : keep));
+        if(MODE==='pets' && !(sent && sent.owner)) localStorage.removeItem(SENT);
+        localStorage.removeItem(DRAFT); } catch(e) {}
+      scrollTo(0, 0); if(UPS){ SENDING = false; await uploadRecs(); return; } }
+    else ERR = reasonText(r.reason, 'form');
+  } catch(e){ ERR = thrownText(e, 'form'); }
+  SENDING = false; draw();
+}
+
+if(new URLSearchParams(location.search).has('blank')){
+  document.body.classList.add('blank'); addPaperStyles();
+  document.getElementById('paper').innerHTML = guestPaper(null, '');
+  document.fonts.ready.then(() => guestPaperFit(document.getElementById('paper')));
+} else (async () => {
+  if(REQ){ try { const st = await rpc('request_status', {p_token:REQ}); NEED = st && st.form ? {...st.form, pets:st.pets} : null; REQEND = st && st.end || null; } catch(e) {}
+    // already sent from this request: "Update it" opens what they sent (kept on the device) to change
+    if(NEED) MODE = NEED.sent || NEED.update ? 'update' : NEED.family && (NEED.newPets || []).length ? 'pets' : NEED.family ? 'update' : 'new'; }
+  startForm(); draw();
+})();
+</script>
+</body>
+</html>

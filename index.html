@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Little Village Pet Lodge</title>
+<meta name="description" content="Pet boarding north of Funk, Nebraska. Dogs, cats and most small pets. Check open spots and request a stay online.">
+<meta name="theme-color" content="#F3FAF8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101716" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="Little Village Pet Lodge">
+<meta property="og:description" content="Pet boarding north of Funk, Nebraska. Request a stay online.">
+<meta property="og:image" content="https://lvpetlodge.com/img/g8.jpg">
+<meta property="og:image:alt" content="Clio, a blue merle Aussie, smiling in the kennel hallway">
+<meta property="og:url" content="https://lvpetlodge.com/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://lvpetlodge.com/">
+<link rel="icon" type="image/png" href="img/icon-192.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<style>
+:root{--bg:#F3FAF8;--card:#fff;--ink:#1F3B36;--mut:#557069;--line:#D5E8E2;--pri:#2F7F72;--pri-ink:#fff;--mint:#A4F7D5;--soft:#E2F6EF;--pink:#E86FA7;--shadow:0 1px 3px rgba(20,60,50,.08),0 6px 20px rgba(20,60,50,.06)}
+@media(prefers-color-scheme:dark){:root{--bg:#101716;--card:#18211F;--ink:#E3F1EC;--mut:#9CB5AD;--line:#27352F;--pri:#5CC2B0;--pri-ink:#062520;--mint:#2D5A4C;--soft:#1C2B27;--pink:#F08DBB;--shadow:none;color-scheme:dark}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+a{color:var(--pri)}
+img{max-width:100%;height:auto;display:block}
+h1,h2,h3{line-height:1.2;margin:0 0 .5em}
+h2{font-size:clamp(26px,4vw,34px)}
+h3{font-size:20px}
+p{margin:0 0 1em}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:999px;background:var(--pri);color:var(--pri-ink);font-weight:700;text-decoration:none;border:0;font-size:16px}
+.btn.alt{background:var(--card);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn svg{width:18px;height:18px}
+.mut{color:var(--mut)}
+/* top bar */
+header{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:12px;min-height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:800;line-height:1.1;flex:none}
+.brand img{width:42px;height:42px;border-radius:8px;background:#fff}
+.brand small{display:block;font-weight:600;color:var(--mut);font-size:12px}
+nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{white-space:nowrap;text-decoration:none;color:var(--ink);font-weight:600;font-size:15px;padding:8px 12px;border-radius:999px}
+nav a:hover{background:var(--soft)}
+nav .btn{min-height:40px;padding:0 16px;margin-left:6px;font-size:15px}
+@media(max-width:820px){.bar{flex-wrap:wrap;padding-top:calc(12px + env(safe-area-inset-top,0px));padding-bottom:8px;row-gap:6px}nav{margin-left:0;width:100%;order:3}.bar .btn.top{margin-left:auto}nav .btn{display:none}}
+@media(min-width:821px){.bar .btn.top{display:none}}
+/* hero */
+.hero{padding:40px 0 24px}
+.hero .hw{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(34px,6vw,54px);letter-spacing:-.01em}
+.hero h1 span{color:var(--pri)}
+.hero .lead{font-size:20px;color:var(--mut);max-width:34em}
+.hero .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.hero .pic{position:relative}
+.hero .pic img{border-radius:24px;aspect-ratio:4/3.4;object-fit:cover;width:100%;box-shadow:var(--shadow)}
+.hero .pic.lineup img{aspect-ratio:auto;object-fit:contain;background:#fff;padding:16px 12px}
+.hero .tag{position:absolute;left:16px;bottom:16px;background:var(--card);color:var(--ink);padding:6px 12px;border-radius:999px;font-size:14px;font-weight:700;box-shadow:var(--shadow)}
+@media(max-width:820px){.hero{padding-top:20px}.hero .hw{grid-template-columns:1fr;gap:22px}.hero .pic{order:-1}.hero .lead{font-size:18px}}
+/* hours strip */
+.hours{background:var(--card);border-radius:20px;box-shadow:var(--shadow);padding:18px 20px;margin-top:28px;display:grid;grid-template-columns:auto 1fr auto;gap:10px 32px;align-items:center}
+.hours h3{margin:0}
+.hrs{display:grid;gap:8px}
+.hr-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.hr-row b{width:80px;flex:none}
+#mine{margin-top:18px;background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:6px 16px;max-width:460px}
+#mine a{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);color:var(--ink);text-decoration:none}
+#mine a:first-child{border-top:0}
+#mine .g{flex:1;min-width:0}#mine small{display:block;color:var(--mut);font-size:13px}
+#mine .st{font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--soft);white-space:nowrap}
+#mine .st.p{background:#FCEFD6;color:#7A5200}
+@media(prefers-color-scheme:dark){#mine .st.p{background:#3A2E14;color:#F2CF8A}}
+.hr-t{background:var(--soft);color:var(--ink);border-radius:999px;padding:4px 12px;font-weight:600;font-size:15px;white-space:nowrap}
+#feeNote{font-size:14px}
+@media(max-width:820px){.hours{grid-template-columns:1fr;gap:12px}}
+section{padding:56px 0}
+section.tint{background:var(--soft)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:820px){.grid3{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--card);border-radius:20px;padding:22px;box-shadow:var(--shadow)}
+.card .ic{width:46px;height:46px;border-radius:14px;background:var(--soft);color:var(--pri);display:grid;place-items:center;margin-bottom:12px}
+.card .ic svg{width:26px;height:26px}
+.note{border-left:4px solid var(--pink);padding:2px 0 2px 14px;margin:14px 0 0;font-weight:600}
+.vax{font-size:15px;color:var(--mut);margin-top:10px}
+/* pricing */
+.price{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.price:last-child{border-bottom:0}
+.price b{font-size:24px;color:var(--pri);white-space:nowrap;flex:none}
+.price span small{display:block;color:var(--mut);font-size:14px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
+.two>*,.grid3>*{min-width:0}
+/* long words (an email address) wrap instead of pushing the page wider than the phone */
+main,footer{overflow-wrap:anywhere}
+@media(max-width:820px){.two{grid-template-columns:minmax(0,1fr)}}
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.gal button{padding:0;border:0;background:none;cursor:zoom-in;border-radius:14px;overflow:hidden;position:relative;aspect-ratio:1/1}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.gal button:hover img{transform:scale(1.04)}
+.gal span{position:absolute;left:0;right:0;bottom:0;padding:18px 10px 8px;color:#fff;font-size:14px;font-weight:600;text-align:left;background:linear-gradient(transparent,rgba(0,0,0,.6))}
+.lb{position:fixed;inset:0;z-index:50;background:rgba(5,12,10,.92);display:none;align-items:center;justify-content:center;flex-direction:column;padding:16px}
+.lb.on{display:flex}
+.lb img{max-height:80vh;max-width:min(1200px,100%);border-radius:10px}
+.lb p{color:#fff;margin:12px 0 0;font-weight:600}
+.lb button{position:absolute;border:0;background:rgba(255,255,255,.12);color:#fff;width:48px;height:48px;border-radius:24px;font-size:26px;cursor:pointer}
+.lb .x{top:16px;right:16px}.lb .pv{left:16px;top:50%}.lb .nx{right:16px;top:50%}
+/* about */
+.about{display:grid;grid-template-columns:1.3fr 1fr;gap:36px;align-items:center}
+.about img{border-radius:20px;box-shadow:var(--shadow);aspect-ratio:4/3;object-fit:cover;width:100%}
+@media(max-width:820px){.about{grid-template-columns:1fr}}
+/* contact */
+.contact a.row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.contact a.row:last-child{border-bottom:0}
+.contact .row svg{width:22px;height:22px;color:var(--pri);flex:none}
+.contact .row>span{min-width:0;overflow-wrap:anywhere}
+.contact .row small{display:block;color:var(--mut);font-size:14px}
+.map{border-radius:16px;background:#fff;border:1px solid var(--line)}
+.gmap{display:block;width:100%;aspect-ratio:4/3;border:0;border-radius:16px;background:var(--soft)}
+.notice{background:var(--pink);color:#fff;font-weight:700;text-align:center;padding:10px 0}
+.notice .wrap{white-space:pre-wrap}
+.fun{font-weight:800;font-size:22px;color:var(--pri);text-align:center;margin-top:10px;letter-spacing:.02em}
+/* treat mixes */
+.treats{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+.treat{padding:0;overflow:hidden;display:flex;flex-direction:column}
+.treat .tp{aspect-ratio:4/3;background:var(--soft);color:var(--pri);display:grid;place-items:center;padding:0;border:0;width:100%;cursor:zoom-in}
+.treat .tp img{width:100%;height:100%;object-fit:cover}
+.treat .tp svg{width:56px;height:56px;opacity:.5}
+.treat .tb{padding:16px 20px 20px}
+.treat h3{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 6px}
+.treat h3 b{color:var(--pri);white-space:nowrap;flex:none}
+.treat .out{display:inline-block;background:var(--pink);color:#fff;font-weight:700;font-size:13px;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+.treat.gone .tp{filter:grayscale(1);opacity:.7}
+.treat p:last-child{margin:0}
+.groom{background:var(--soft);box-shadow:none;border:2px dashed var(--mint);text-align:center;padding:28px 22px}
+.groom #groomer{max-width:40em;margin:0 auto}
+.soon{display:inline-block;background:var(--pink);color:#fff;font-weight:700;font-size:13px;padding:3px 12px;border-radius:999px;margin-bottom:10px}
+footer{padding:32px 0 48px;color:var(--mut);font-size:15px;text-align:center}
+footer a{color:var(--mut)}
+</style>
+</head>
+<body>
+<header><div class="wrap bar">
+  <a class="brand" href="#top"><img src="img/logo.png" alt="" width="42" height="42"><span>Little Village<small>Pet Lodge</small></span></a>
+  <nav aria-label="Sections">
+    <a href="#boarding">Boarding</a><a href="#pricing">Pricing</a><a href="#treats" id="treatsNav" hidden>Treats</a><a href="#gallery">Gallery</a><a href="#about">About</a><a href="#grooming">Grooming</a><a href="#contact">Contact</a><a href="#directions">Directions</a>
+  </nav>
+</div></header>
+
+<main id="top">
+<div class="notice" id="notice" hidden><div class="wrap"></div></div>
+<div class="hero"><div class="wrap hw">
+  <div>
+    <h1 id="headline"></h1>
+    <p class="lead" id="intro"></p>
+    <div class="acts">
+      <a class="btn" href="book.html">Check open spots</a>
+      <a class="btn alt telLink" id="heroPhone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span></span></a>
+    </div>
+    <div id="mine" hidden></div>
+  </div>
+  <div class="pic"><img id="heroImg" alt="" width="1600" height="1200"><span class="tag" id="heroTag"></span></div>
+</div>
+<div class="wrap">
+  <div class="hours" id="hours">
+    <h3>Drop-off &amp; pickup</h3>
+    <div class="hrs" id="hoursList"><div class="hr-row"><b>Mon–Sat</b><span class="hr-t">8–9:30 AM</span><span class="hr-t">4–5:30 PM</span></div><div class="hr-row"><b>Sun</b><span class="hr-t">5–6 PM</span></div></div>
+    <div class="mut" id="feeNote">Other times have a $10 fee.</div>
+  </div>
+</div></div>
+
+<section id="boarding"><div class="wrap">
+  <h2>Boarding</h2>
+  <p class="mut" id="boardIntro"></p>
+  <div class="grid3" id="cards"></div>
+  <p class="note" id="vaxNote"></p>
+  <div class="card" style="margin-top:22px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:space-between">
+    <div style="flex:1 1 240px;min-width:0"><h3 style="margin:0 0 4px">New here?</h3><span class="mut">Before your first stay we need a guest form. You’ll be asked for it when you <a href="book.html">request a stay</a>, or you can fill it out now. Prefer paper? <a href="new-form-line-art.pdf" target="_blank" rel="noopener">Print it</a> and bring it along. Stayed with us before and something changed? <a href="guest-form.html?update">Update your details</a>.</span></div>
+    <a class="btn alt" href="guest-form.html">Guest form</a>
+  </div>
+</div></section>
+
+<section id="pricing" class="tint"><div class="wrap">
+  <h2>Pricing</h2>
+  <div class="two">
+    <div class="card"><h3>Per night</h3><div id="prices"></div><p class="mut" style="margin:12px 0 0;font-size:15px" id="shareNote"></p></div>
+    <div class="card"><h3>Extras</h3><div id="extras"></div><p class="mut" style="margin:12px 0 0;font-size:15px" id="payNote"></p></div>
+  </div>
+  <p style="margin:22px 0 0;text-align:center"><a class="btn" href="book.html">Check open spots</a></p>
+</div></section>
+
+<section id="treats" hidden><div class="wrap">
+  <h2>Treat mixes</h2>
+  <p class="mut" id="treatsIntro"></p>
+  <div class="treats" id="treatList"></div>
+</div></section>
+
+<section id="gallery"><div class="wrap">
+  <h2>Take a look around</h2>
+  <p class="mut">I try to post pictures on <a class="fbLink" target="_blank" rel="noopener">Facebook</a> after the noon let-out, so like and follow the page for pictures and the latest news.</p>
+  <div class="gal" id="gal"></div>
+</div></section>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo"><button class="x" aria-label="Close">×</button><button class="pv" aria-label="Previous">‹</button><img alt=""><p></p><button class="nx" aria-label="Next">›</button></div>
+
+<section id="about" class="tint"><div class="wrap about">
+  <div><h2>About us</h2><div id="aboutText"></div></div>
+  <figure style="margin:0"><img id="aboutImg" alt="" loading="lazy" width="1600" height="1200"><figcaption id="aboutCap" class="fun"></figcaption></figure>
+</div></section>
+
+<section id="grooming"><div class="wrap">
+  <div class="card groom"><span class="soon">Coming soon</span><h2>Grooming</h2><div id="groomer"></div></div>
+</div></section>
+
+<section id="contact"><div class="wrap two">
+  <div class="card contact">
+    <h2 style="font-size:28px">Contact</h2>
+    <a class="row telLink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span data-pre="Call "></span></a>
+    <a class="row smsLink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg><span data-pre="Text "></span></a>
+    <a class="row" id="emailLink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span></span></a>
+    <a class="row fbLink" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H7v4h3v8h4v-8h3l1-4h-4V8z"/></svg><span>Message us on Facebook<small>Pictures and the latest news</small></span></a>
+    <a class="row" id="mapLink" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><span><span id="addr"></span><small>Open in Maps</small></span></a>
+  </div>
+  <div class="card" id="directions">
+    <h2 style="font-size:28px">Directions</h2>
+    <iframe class="gmap" title="Map showing Little Village Pet Lodge" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps/embed?origin=mfe&amp;pb=!1m4!2m1!1s40.5547,-99.29015!5e1!6i17"></iframe>
+    <p class="mut" style="margin:8px 0 14px;font-size:14px"><a id="mapLink2" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination=40.5547,-99.29015">Get directions in Google Maps</a></p>
+    <img class="map" src="img/map.png" alt="Map: the lodge is at the west end of 740 Road, between S Road and T Road. 741 Road and 739 Road are gravel; 740 Road west of T Road is minimum maintenance." loading="lazy" width="1252" height="845">
+    <div id="dirText" style="margin-top:14px"></div>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <p><b>Little Village Pet Lodge</b> · <span id="footAddr"></span> · <a class="telLink"><span></span></a></p>
+  <p><a href="book.html">Request a stay</a> · <a href="guest-form.html">Guest form</a> · <a class="fbLink" target="_blank" rel="noopener">Facebook</a></p>
+</div></footer>
+<noscript><p style="text-align:center">Call or text (308) 233-2652 · littlevillagepetlodge@outlook.com</p></noscript>
+
+<script>
+'use strict';
+const API = 'https://hmkhdmtededcxsjnlqxz.supabase.co/rest/v1/rpc/', KEY = 'sb_publishable_kNXTM6u_Jl95mmgBpJuzhw_bww2lCiB';
+// requests sent from this device (saved by the request page) show under the hero buttons
+(() => { let M; try { M = JSON.parse(localStorage.getItem('lvpl-mine')); } catch(e) {} const reqs = (M && M.reqs) || []; if(!reqs.length) return;
+  const today = new Date(), ymd = today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
+  const MO = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'], md = d => MO[+d.slice(5,7)-1]+' '+(+d.slice(8));
+  const LBL = {pending:'Waiting for our reply', approved:'Booked', declined:'Couldn’t book', expired:'Couldn’t book'};
+  Promise.all(reqs.filter(x => x.end >= ymd).map(x => fetch(API+'request_status', {method:'POST', headers:{apikey:KEY, 'Content-Type':'application/json'}, body:JSON.stringify({p_token:x.token})})
+    .then(r => r.ok ? r.json() : null).then(st => st && LBL[st.status] && {x, st}).catch(() => null))).then(list => {
+    list = list.filter(Boolean); if(!list.length) return;
+    const box = document.getElementById('mine');
+    box.replaceChildren(...list.map(({x, st}) => { const a = document.createElement('a'); a.href = 'book.html?r='+x.token;
+      const g = document.createElement('span'); g.className = 'g'; g.textContent = 'Your stay: '+md(st.start)+' – '+md(st.end);
+      const sm = document.createElement('small'); sm.textContent = st.pets.map(p => p.name).join(', '); g.append(sm);
+      const b = document.createElement('span'); b.className = 'st'+(st.status==='pending' ? ' p' : ''); b.textContent = LBL[st.status];
+      a.append(g, b); return a; }));
+    box.hidden = false; });
+})();
+const rpc = fn => fetch(API+fn, {method:'POST', headers:{apikey:KEY, 'Content-Type':'application/json'}, body:'{}'}).then(r => r.ok ? r.json() : null);
+// The text, prices and photos are edited in the kennel app (Settings > Website). This copy
+// is what shows until that loads, or if it can't. Keep it the same as defaultSite() in the app.
+const DEFAULT = {"v": 1, "notice": "", "headline": "Lodging for your pets while you’re away from home", "intro": "A safe, friendly place in the country north of Funk, Nebraska, for dogs, cats, and most any small pet with fur, feathers or scales.", "hero": "lineup", "heroTag": "", "boardIntro": "Enjoy your vacation or time away from home without worrying about your fur baby.", "cards": [{"title": "Dogs", "text": "We have 16 dog kennels. Half are 4×8 feet and half are 3×6 feet. The bigger ones go first come, first served, or to dogs sharing a kennel.\n\nDogs are let out three times a day to do their business and play in a large fenced-in yard.", "vax": "Vaccines required: Rabies, Canine Distemper, Bordetella"}, {"title": "Cats and ferrets", "text": "Cats get their own cat condo in the lobby. A condo holds up to 2 large cats. A kennel in the dog area is available if the condo is taken.\n\nFerrets are housed the same as cats if no cage or enclosure is provided.", "vax": "Vaccines required for cats: Rabies, FVRCP, Feline Leukemia"}, {"title": "Other pets", "text": "Birds, reptiles, rabbits and other small pets are welcome. Please bring their cage or enclosure (or a temporary one). They stay in the lobby or kennel area depending on space.", "vax": "Vaccines: up to date where applicable"}], "vaxNote": "All pets must have up-to-date vaccinations appropriate for their species. This keeps not only other pets healthy, but yours too when they stay!", "prices": [{"label": "Dogs", "sub": "per dog", "price": "$25"}, {"label": "Cats", "sub": "per cat", "price": "$15"}, {"label": "Other pets", "sub": "per pet", "price": "$10"}], "shareNote": "Two pets sharing a kennel, condo or enclosure: $2 off each. For example, two dogs in one kennel are $23 each, $46 a night.", "extras": [{"label": "Late pickup, 4 PM or later", "sub": "No fee on Sundays", "price": "+$5"}, {"label": "Drop-off or pickup outside hours", "price": "+$10"}, {"label": "Medications given", "price": "+$2"}], "payNote": "We take cards through Square. Card payments have a 2.6% fee to cover Square’s charge.", "about": "Little Village Pet Lodge is a pet boarding facility in rural Nebraska north of Funk. We accept most any small pet, not just dogs and cats! We provide a safe place to house your fur, feather, or scaly babies when you are away from home for whatever reason.\n\nOwner Ashleigh Jauken operates the facility mostly by herself, but now has three young sons in tow. You’ll probably see Kaleb, Kolby, Kolt, or all three as she works. She has always loved all animals and has experience with many pets throughout her life. She went to Nebraska College of Technical Agriculture and studied to become a vet tech. Although she didn’t quite make it to a licensed vet tech, she still graduated with a Degree of Applied Animal Science.\n\nAshleigh came up with the name Little Village Pet Lodge from the facility’s location. It’s just north of Funk, Nebraska, which is officially called the Village of Funk. “I thought it would be fun to call my business Little Village because of its location near Funk. Plus, there are hopefully going to be many different animals staying there, like a village would, so why not Little Village?” Ashleigh says. The Lodge part of the name also comes from where the property is. “When you think lodge, you usually think of a place out in the country, and my little pet village is out in the country, so it made perfect sense to say lodge at the end instead of boarding. And that’s how Little Village Pet Lodge was named!”", "groomer": "Do you or someone you know groom animals? Need somewhere to operate? Little Village is looking for a groomer to rent space here at the lodge! Call, text, or email for more information!", "phone": "(308) 233-2652", "email": "littlevillagepetlodge@outlook.com", "facebook": "https://www.facebook.com/Little-Village-Pet-Lodge-109671294113263/", "address": "11841 740 Road, Funk, NE 68940", "directions": "The first mile of 740 Rd west of T Rd is a minimum maintenance road. When it’s wet, or has been, please use 741 Rd or 739 Rd instead.\n\nWe’re the big metal building with the green roof and trim.", "photos": [{"id": "g1", "src": "img/g1.jpg", "sm": "img/g1-sm.jpg", "cap": "Facility building and parking"}, {"id": "g2", "src": "img/g2.jpg", "sm": "img/g2-sm.jpg", "cap": "Entrance"}, {"id": "g3", "src": "img/g3.jpg", "sm": "img/g3-sm.jpg", "cap": "Lobby"}, {"id": "g4", "src": "img/g4.jpg", "sm": "img/g4-sm.jpg", "cap": "Cat condos in the lobby"}, {"id": "g5", "src": "img/g5.jpg", "sm": "img/g5-sm.jpg", "cap": "A cat condo up close"}, {"id": "g6", "src": "img/g6.jpg", "sm": "img/g6-sm.jpg", "cap": "Kennel room"}, {"id": "g7", "src": "img/g7.jpg", "sm": "img/g7-sm.jpg", "cap": "Occupied kennel"}, {"id": "g8", "src": "img/g8.jpg", "sm": "img/g8-sm.jpg", "cap": "I’m Clio"}, {"id": "g9", "src": "img/g9.jpg", "sm": "img/g9-sm.jpg", "cap": "Being let out"}, {"id": "g10", "src": "img/g10.jpg", "sm": "img/g10-sm.jpg", "cap": "In the yard with a friend"}], "aboutPhoto": "lookup", "aboutCap": "LOOK UP THERE!", "treatsIntro": "We offer dog treat mixes. Ask for one when you drop off or pick up, and pay when you get it.", "treats": []};
+const $ = id => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if(cls) e.className = cls; if(text != null) e.textContent = text; return e; };
+const paras = (box, text) => box.replaceChildren(...String(text||'').split(/\n\s*\n/).map(t => t.trim()).filter(Boolean).map(t => el('p', null, t)));
+const ICON = [
+  '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5.5" cy="10" r="2.2"/><circle cx="9.5" cy="5.5" r="2.2"/><circle cx="14.5" cy="5.5" r="2.2"/><circle cx="18.5" cy="10" r="2.2"/><path d="M12 11c-3 0-6 4.5-6 7a3 3 0 0 0 3 3c1.2 0 2-.6 3-.6s1.8.6 3 .6a3 3 0 0 0 3-3c0-2.5-3-7-6-7z"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M5 4l3 4h8l3-4v9a7 7 0 0 1-14 0z"/><circle cx="9.5" cy="12" r=".6" fill="currentColor"/><circle cx="14.5" cy="12" r=".6" fill="currentColor"/></svg>',
+  '<svg viewBox="0 0 24 24" fill="currentColor"><ellipse cx="8.6" cy="5.6" rx="1.7" ry="4.6" transform="rotate(-14 8.6 5.6)"/><ellipse cx="12.9" cy="5.4" rx="1.7" ry="4.6" transform="rotate(10 12.9 5.4)"/><circle cx="10.8" cy="11.6" r="3.7"/><ellipse cx="13" cy="17.6" rx="6.2" ry="4.4"/><circle cx="19.6" cy="16.4" r="1.6"/><circle cx="9.6" cy="11" r=".7" fill="var(--soft)"/></svg>'];
+let PHOTOS = [];
+
+function draw(c){
+  const n = $('notice'); n.hidden = !c.notice; n.firstElementChild.textContent = c.notice || '';
+  // the last three words of the headline get the accent color
+  const w = c.headline.split(' '), cut = Math.max(0, w.length - 3);
+  $('headline').replaceChildren(w.slice(0, cut).join(' ') + (cut ? ' ' : ''), el('span', null, w.slice(cut).join(' ')));
+  $('intro').textContent = c.intro;
+  // 'lineup' is the row of animals from the old site; otherwise one of the gallery photos
+  const line = c.hero==='lineup', hero = !line && (c.photos.find(p => p.id===c.hero) || c.photos[0]);
+  document.querySelector('.hero .pic').classList.toggle('lineup', line);
+  if(line){ $('heroImg').src = 'img/banner.jpg'; $('heroImg').alt = 'A fish, a ferret, dogs, a cat, a rabbit and other small pets in a row'; }
+  else if(hero){ $('heroImg').src = hero.src; $('heroImg').alt = hero.cap || ''; }
+  $('heroTag').textContent = c.heroTag || ''; $('heroTag').hidden = !c.heroTag;
+  $('boardIntro').textContent = c.boardIntro;
+  $('cards').replaceChildren(...c.cards.map((k, i) => { const d = el('div','card'), ic = el('div','ic'); ic.innerHTML = ICON[i] || ICON[2];
+    const t = el('div'); paras(t, k.text); const v = el('div','vax', k.vax); d.append(ic, el('h3', null, k.title), t, v); return d; }));
+  $('vaxNote').textContent = c.vaxNote; $('vaxNote').hidden = !c.vaxNote;
+  const row = (label, sub, price) => { const r = el('div','price'), s = el('span', null, label); if(sub) s.append(el('small', null, sub)); r.append(s, el('b', null, price)); return r; };
+  // prices come from the app's Settings > Rates (the same numbers as bills and the request
+  // page's estimate); the typed list is only a fallback until those load
+  const R = INFO && INFO.rates, $$ = n => '$'+(Number.isInteger(n) ? n : n.toFixed(2));
+  const prices = R ? [['Dogs','per dog',$$(R.dog)], ['Cats','per cat',$$(R.cat)], ['Other pets','per pet',$$(R.other)]].map(([label, sub, price]) => ({label, sub, price})) : c.prices;
+  // "16:00" as "4 PM", "16:30" as "4:30 PM"
+  const hm12 = t => { const [H, M] = t.split(':').map(Number); return (H % 12 || 12)+(M ? ':'+String(M).padStart(2, '0') : '')+(H < 12 ? ' AM' : ' PM'); };
+  const extras = R ? [INFO.eveFee && {label:'Late pickup, '+hm12(INFO.eveFrom || '16:00')+' or later', sub:'No fee on Sundays', price:'+'+$$(INFO.eveFee)},
+      INFO.fee && {label:'Drop-off or pickup outside hours', price:'+'+$$(INFO.fee)}, R.meds && {label:'Medications given', price:'+'+$$(R.meds)}].filter(Boolean) : c.extras;
+  const share = R ? (R.share ? 'Two pets sharing a kennel, condo or enclosure: '+$$(R.share)+' off each, per night. For example, two dogs in one kennel are '+$$(R.dog-R.share)+' each, '+$$(2*(R.dog-R.share))+' a night.' : '') : c.shareNote;
+  const pay = R && R.card != null ? String(c.payNote||'').replace(/\d+(\.\d+)?\s*%/, R.card+'%') : c.payNote;
+  $('prices').replaceChildren(...prices.filter(p => p.label).map(p => row(p.label, p.sub, p.price)));
+  $('extras').replaceChildren(...extras.filter(p => p.label).map(p => row(p.label, p.sub || '', p.price)));
+  $('shareNote').textContent = share; $('shareNote').hidden = !share; $('payNote').textContent = pay;
+  PHOTOS = c.photos;
+  $('gal').replaceChildren(...c.photos.map((p, i) => { const b = el('button'); b.setAttribute('aria-label', 'Open photo'+(p.cap ? ': '+p.cap : ''));
+    const im = el('img'); im.src = p.sm || p.src; im.alt = p.cap || ''; im.loading = 'lazy'; im.width = 640; im.height = 480; b.append(im);
+    if(p.cap) b.append(el('span', null, p.cap)); b.onclick = () => show(i); return b; }));
+  // 'lookup' is the cat looking up; otherwise one of the gallery photos
+  const ap = c.aboutPhoto==='lookup' ? {src:'img/lookup.jpg', cap:'A gray cat looking up'} : (c.photos.find(p => p.id===c.aboutPhoto) || c.photos[0]);
+  if(ap){ $('aboutImg').src = ap.src; $('aboutImg').alt = ap.cap || ''; }
+  $('aboutCap').textContent = c.aboutCap || ''; $('aboutCap').hidden = !c.aboutCap;
+  paras($('aboutText'), c.about);
+  // treat mixes for sale (picked up and paid for at the lodge); hidden until there's one, or when switched off in the app
+  const T = (Array.isArray(c.treats) ? c.treats : []).filter(t => t && t.name);
+  $('treats').hidden = $('treatsNav').hidden = !T.length || !!c.treatsOff;
+  $('treatsIntro').textContent = c.treatsIntro || ''; $('treatsIntro').hidden = !c.treatsIntro;
+  $('treatList').replaceChildren(...T.map(t => { const d = el('div', 'card treat'+(t.out ? ' gone' : ''));
+    const tp = el(t.src ? 'button' : 'div', 'tp');
+    if(t.src){ const im = el('img'); im.src = t.sm || t.src; im.alt = t.name; im.loading = 'lazy'; im.width = 480; im.height = 360; tp.append(im);
+      tp.setAttribute('aria-label', 'Open photo: '+t.name); tp.onclick = () => { PHOTOS = [{src:t.src, cap:t.name}]; show(0); }; }
+    else tp.innerHTML = ICON[0];
+    const b = el('div', 'tb'), h3 = el('h3', null, t.name); if(t.price) h3.append(el('b', null, t.price));
+    b.append(h3); if(t.out) b.append(el('span', 'out', 'Sold out for now'));
+    const dsc = el('div'); paras(dsc, t.desc); b.append(dsc);
+    d.append(tp, b); return d; }));
+  $('grooming').hidden = !c.groomer; paras($('groomer'), c.groomer);
+  const digits = c.phone.replace(/\D/g,''), tel = '+1' + digits.slice(-10);
+  document.querySelectorAll('.telLink').forEach(a => { a.href = 'tel:'+tel; const s = a.querySelector('span'); s.textContent = (s.dataset.pre || '') + c.phone; });
+  document.querySelectorAll('.smsLink').forEach(a => { a.href = 'sms:'+tel; const s = a.querySelector('span'); s.textContent = (s.dataset.pre || '') + c.phone; });
+  $('emailLink').href = 'mailto:'+c.email; $('emailLink').querySelector('span').textContent = c.email;
+  document.querySelectorAll('.fbLink').forEach(a => a.href = c.facebook);
+  $('addr').textContent = c.address; $('footAddr').textContent = c.address;
+  $('mapLink').href = 'https://www.google.com/maps/search/?api=1&query=40.5547,-99.29015';
+  paras($('dirText'), c.directions);
+}
+let CONTENT = DEFAULT, INFO = null;
+draw(CONTENT);
+rpc('site_content').then(c => { if(c && c.v){ CONTENT = {...DEFAULT, ...c}; draw(CONTENT); } }).catch(() => {});
+
+// full-screen photo viewer
+const lb = $('lb'), lbImg = lb.querySelector('img'), lbCap = lb.querySelector('p');
+let at = 0;
+function show(i){ at = (i + PHOTOS.length) % PHOTOS.length; lbImg.src = PHOTOS[at].src; lbImg.alt = PHOTOS[at].cap || ''; lbCap.textContent = PHOTOS[at].cap || ''; lb.querySelector('.pv').hidden = lb.querySelector('.nx').hidden = PHOTOS.length < 2; lb.classList.add('on'); document.body.style.overflow = 'hidden'; }
+function hide(){ PHOTOS = CONTENT.photos; lb.classList.remove('on'); document.body.style.overflow = ''; }
+lb.querySelector('.x').onclick = hide; lb.querySelector('.pv').onclick = () => show(at-1); lb.querySelector('.nx').onclick = () => show(at+1);
+lb.onclick = e => { if(e.target===lb) hide(); };
+addEventListener('keydown', e => { if(!lb.classList.contains('on')) return; if(e.key==='Escape') hide(); if(e.key==='ArrowLeft') show(at-1); if(e.key==='ArrowRight') show(at+1); });
+let tx = null; lb.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive:true});
+lb.addEventListener('touchend', e => { if(tx==null) return; const d = e.changedTouches[0].clientX - tx; if(Math.abs(d) > 50) show(at + (d < 0 ? 1 : -1)); tx = null; });
+
+// Hours come from the kennel app's booking settings when they're set
+const t12 = t => { const [a,b] = t.split(':'); return ((+a+11)%12+1)+(b==='00' ? '' : ':'+b)+(+a<12 ? ' AM' : ' PM'); };
+const span = ([a,b]) => { const x = t12(a), y = t12(b); return x.slice(-2)===y.slice(-2) ? x.slice(0,-3)+'–'+y : x+'–'+y; };
+rpc('booking_info').then(info => {
+  if(info){ INFO = info; draw(CONTENT); }
+  if(!info || !Array.isArray(info.hours)) return;
+  const D = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'], lines = [];
+  info.hours.forEach((w, i) => { const t = w.length ? w.map(span).join(' and ') : 'Closed', last = lines[lines.length-1];
+    if(last && last.t===t && last.to===i-1) last.to = i; else lines.push({from:i, to:i, t, w}); });
+  lines.sort((a, b) => (a.from || 7) - (b.from || 7));   // Monday first
+  $('hoursList').replaceChildren(...lines.map(l => { const r = el('div','hr-row'); r.append(el('b', null, l.from===l.to ? D[l.from] : D[l.from]+'–'+D[l.to]));
+    if(l.w.length) l.w.forEach(x => r.append(el('span','hr-t', span(x)))); else r.append(el('span','mut','Closed')); return r; }));
+  if(info.fee != null) $('feeNote').textContent = info.fee ? 'Other times have a $'+info.fee+' fee.' : '';
+}).catch(() => {});
+</script>
+</body>
+</html>
